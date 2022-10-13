@@ -23,8 +23,16 @@ if (connection) {
 } else {
   console.log("database connection error");
 }
+app.use(expressLayouts);
+app.set("layout", "./layouts/full-width");
 app.get("", (req, res) => {
-  res.render("index");
+  res.render("index", { title: "Home Noorwa bookshop" });
+});
+app.get("/dasboard", (req, res) => {
+  res.render("dashboard", {
+    title: "dasboard",
+    layout: "./layouts/dashboard-lay",
+  });
 });
 app.listen(APP_PORT, function () {
   console.log("server running " + APP_PORT);
