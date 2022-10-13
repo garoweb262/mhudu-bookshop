@@ -1,0 +1,23 @@
+{
+  "name": "mhudu-bookshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "garzali ahmad garo",
+  "license": "ISC",
+  "dependencies": {
+    "env": "^0.0.2",
+    "express": "^4.18.2",
+    "express-ejs": "^2.0.0",
+    "express-layout": "^0.1.0",
+    "express-partials": "^0.3.0",
+    "express-router": "^0.0.1",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.5",
+    "nodemon": "^2.0.20",
+    "uuid": "^9.0.0"
+  }
+}
