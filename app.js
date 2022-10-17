@@ -2,6 +2,7 @@ const express = require("express");
 const mongodb = require("mongodb");
 const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
+const userRoutes = require("./routes/user");
 const app = express();
 app.use(express.json());
 app.use(express.static("assets"));
@@ -25,15 +26,16 @@ if (connection) {
 }
 app.use(expressLayouts);
 app.set("layout", "./layouts/full-width");
-app.get("", (req, res) => {
-  res.render("index", { title: "Home Noorwa bookshop" });
-});
+// app.get("", (req, res) => {
+//   res.render("index", { title: "Home Noorwa bookshop" });
+// });
 app.get("/dasboard", (req, res) => {
   res.render("dashboard", {
     title: "dasboard",
     layout: "./layouts/dashboard-lay",
   });
 });
+app.use(userRoutes);
 app.listen(APP_PORT, function () {
   console.log("server running " + APP_PORT);
 });
