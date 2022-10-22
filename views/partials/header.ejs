@@ -29,14 +29,20 @@
       <div class="col-lg-3">
         <div class="header__cart">
           <ul>
+            <% if (user) { %>
+            <li><%= user.name %></li>
+            <li>
+              <a href="/logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <!-- <p>Logout</p> -->
+              </a>
+            </li>
+            <%} else {%>
             <li>
               <a href="/login"><i class="fa fa-user"></i></a>
             </li>
-            <li>
-              <a href="#"><i class="fa fa-shopping-cart"></i> <span>3</span></a>
-            </li>
+            <%}%>
           </ul>
-          <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
       </div>
     </div>

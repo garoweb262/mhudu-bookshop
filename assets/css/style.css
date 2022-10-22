@@ -77,10 +77,9 @@ ol {
   margin: 0;
 }
 
-/*---------------------
-  Helper CSS
------------------------*/
-
+.error {
+  color: red;
+}
 .section-title {
   margin-bottom: 50px;
   text-align: center;

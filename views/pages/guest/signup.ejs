@@ -8,12 +8,13 @@
             <h3 class="text-light text-center">Create Account</h3>
           </div>
           <div class="card-body py-5 px-3">
-            <form action="" method="POST">
+            <form>
               <div class="row">
                 <div class="col-md-6 col-12 my-2">
                   <div class="form-group">
                     <input
                       type="text"
+                      name="name"
                       placeholder="Your Name"
                       class="form-control"
                     />
@@ -23,15 +24,18 @@
                   <div class="form-group">
                     <input
                       type="text"
+                      name="email"
                       placeholder="Your Email"
                       class="form-control"
                     />
+                    <div class="email error"></div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12 my-2">
                   <div class="form-group">
                     <input
                       type="text"
+                      name="phone"
                       placeholder="Your Phone"
                       class="form-control"
                     />
@@ -41,6 +45,7 @@
                   <div class="form-group">
                     <input
                       type="text"
+                      name="street"
                       placeholder="Your Address"
                       class="form-control"
                     />
@@ -50,6 +55,7 @@
                   <div class="form-group">
                     <input
                       type="text"
+                      name="lga"
                       placeholder="Your Lga"
                       class="form-control"
                     />
@@ -59,6 +65,7 @@
                   <div class="form-group">
                     <input
                       type="text"
+                      name="state"
                       placeholder="Your State"
                       class="form-control"
                     />
@@ -67,19 +74,23 @@
                 <div class="col-md-6 col-12 my-2">
                   <div class="form-group">
                     <input
-                      type="text"
+                      type="password"
+                      name="password"
                       placeholder="Your Password"
                       class="form-control"
                     />
+                    <div class="password error"></div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12 my-2">
                   <div class="form-group">
                     <input
-                      type="text"
+                      type="password"
+                      name="confirmPassword"
                       placeholder="Confirm Password"
                       class="form-control"
                     />
+                    <div class="confirm error"></div>
                   </div>
                 </div>
                 <div class="col-12 my-2">
@@ -106,3 +117,59 @@
     </div>
   </div>
 </div>
+<script>
+  const form = document.querySelector("form");
+  const emailError = document.querySelector(".email.error");
+  const passwordError = document.querySelector(".password.error");
+  const confirmError = document.querySelector(".confirm.error");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    //reset errors
+    emailError.textContent = "";
+    passwordError.textContent = "";
+    confirmError.textContent = "";
+    //get value
+    const name = form.name.value;
+    const email = form.email.value;
+    const phone = form.phone.value;
+    const street = form.street.value;
+    const lga = form.lga.value;
+    const state = form.state.value;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+
+    // console.log(name, email, phone, street, lga, state, password);
+    try {
+      if (password !== confirmPassword) {
+        confirmError.textContent = "Password Mismatch";
+        // console.log(confirmError.textContent);
+      } else {
+        const res = await fetch("/user/register", {
+          method: "POST",
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            street: street,
+            lga: lga,
+            state: state,
+            password: password,
+          }),
+          headers: { "Content-type": "application/json" },
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.errors) {
+          emailError.textContent = data.errors.email;
+          passwordError.textContent = data.errors.password;
+        }
+        if (data.user) {
+          location.assign("/login");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>
