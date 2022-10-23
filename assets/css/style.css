@@ -70,7 +70,14 @@ a:focus {
   outline: none;
   color: #e9a625;
 }
-
+.tom {
+  color: #e9a625;
+}
+.tom:hover {
+  text-decoration: none;
+  outline: none;
+  color: #e9a625;
+}
 ul,
 ol {
   padding: 0;
