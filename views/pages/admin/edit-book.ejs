@@ -1,0 +1,180 @@
+
+  <div class="confirm error text-danger text-center text-xl>
+    </div>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-4 col-md-12"></div>
+      <div class="col-lg-4 col-md-12">
+        <div class="card my-5">
+          <div class="card-header bg-warning">
+            <h3 class="text-light text-center">Upload Book</h3>
+          </div>
+          <div class="card-body py-5 px-3">
+            <form>
+              <div class="row">
+                <div class="col-sm-6 my-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="title"
+                      value=<%= result.title %>
+                      placeholder="Book Title"
+                      class="form-control"
+                    />
+                    <div class="name error"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 my-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="author"
+                      value=<%= result.author %>
+                      placeholder="Book Author"
+                      class="form-control"
+                    />
+                    <div class="name error"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 my-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="price"
+                      placeholder="Book Price"
+                      value=<%= result.price %>
+                      class="form-control"
+
+                       
+                    />
+                    <div class="name error"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 my-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="isbn"
+                      value=<%= result.isbn %>
+                      placeholder="Book ISBN No"
+                      class="form-control"
+                    />
+                    <div class="name error"></div>
+                  </div>
+                </div>
+                  <div class="col-sm-6 my-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="dp"
+                      value=<%= result.dp %>
+                      placeholder="picture string"
+                      class="form-control"
+                    />
+                    <div class="name error"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 my-2">
+                   <div class="form-group">
+                           
+                            <select
+                              name="catalogue"
+                            
+                              class="form-control w-100"
+                              id="exampleFormControlSelect1"
+                            >
+                           <option     value=<%= result.catalogue %>><%= result.catalogue %></option>
+                                    
+                          </select>
+                            <div class="catalogue error"></div>
+                          </div>
+                </div>
+                <div class="col-12 my-2">
+                  <div class="form-group">
+                    <label class="text-dark" for="comment">Catalogue Description</label>
+
+                    <textarea
+                      name="description"
+                      value=<%= result.description %>
+                      class="form-control"
+                      colums="15"
+                      id="comment"
+                      placeholder="catalogue description"
+                      rows="5"
+                    >
+                    </textarea>
+
+                    <div class="description error"></div>
+                  </div>
+                </div>
+                <div class="col-12 my-2">
+                  <div class="form-group">
+                    <input
+                      type="submit"
+                      value="Update Book"
+                      class="btn btn-warning text-light w-100"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12"></div>
+    </div>
+  </div>
+
+<script>
+  const form = document.querySelector("form");
+  const confirmError = document.querySelector(".confirm.error");
+  const getCatalogue = async() =>{
+  const result = await fetch("/catalogue", {
+        method: "GET",
+        headers: { "Content-type": "application/json" },
+      });
+      const res = await result.json();
+      console.log(res);
+  }
+   
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    confirmError.textContent = "";
+    //get value
+    const title = form.title.value;
+    const description = form.description.value;
+    const author = form.author.value;
+    const dp = form.dp.value;
+    const isbn = form.isbn.value;
+    const catalogue = form.catalogue.value;
+    const price = form.price.value;
+
+    // console.log(form.name.value, description);
+    try {
+
+      const res = await fetch("/book/:id", {
+        method: "PUT",
+        body: JSON.stringify({
+          title: title,
+          author:author,
+          dp:dp,
+          isbn:isbn,
+          catalogue:catalogue,
+          price:price,
+          description: description,
+        }),
+        headers: { "Content-type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+
+      if (data) {
+        location.assign("/all-books");
+        confirmError.textContent = "Book Updated successfully..!";
+      } else confirmError.textContent = "Updatingg Book Failed!";
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>

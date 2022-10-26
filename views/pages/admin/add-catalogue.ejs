@@ -1,0 +1,91 @@
+<div>
+  <div class="container">
+    <div class="confirm error text-danger text-center text-xl></div>
+    <div class="row">
+      <div class="col-md-4 col-sm-12"></div>
+      <div class="col-md-4 col-sm-12">
+        <div class="card my-5">
+          <div class="card-header bg-warning">
+            <h3 class="text-light text-center">Create Catalogue</h3>
+          </div>
+          <div class="card-body py-5 px-3">
+            <form>
+              <div class="row">
+                <div class="col-12 my-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Catalogue Name"
+                      class="form-control"
+                    />
+                    <div class="name error"></div>
+                  </div>
+                </div>
+                <div class="col-12 my-2">
+                  <div class="form-group">
+                    <label class="text-dark" for="comment">Catalogue Description</label>
+
+                    <textarea
+                      name="description"
+                      class="form-control"
+                      colums="15"
+                      id="comment"
+                      placeholder="catalogue description"
+                      rows="5"
+                    >
+                    </textarea>
+
+                    <div class="description error"></div>
+                  </div>
+                </div>
+                <div class="col-12 my-2">
+                  <div class="form-group">
+                    <input
+                      type="submit"
+                      value="Create"
+                      class="btn btn-warning text-light w-100"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12"></div>
+    </div>
+  </div>
+</div>
+<script>
+  const form = document.querySelector("form");
+  const confirmError = document.querySelector(".confirm.error");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    confirmError.textContent = "";
+    //get value
+    const name = form.name.value;
+    const description = form.description.value;
+
+    console.log(form.name.value, description);
+    try {
+      const res = await fetch("/catalogue/create", {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          description: description,
+        }),
+        headers: { "Content-type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+
+      if (data) {
+        location.assign("/all-catalogue");
+        confirmError.textContent = "Catalogue Created..!";
+      } else confirmError.textContent = "Creating Catalogue Failed!";
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>

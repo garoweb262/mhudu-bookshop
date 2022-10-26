@@ -1,0 +1,138 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title">All Books</h4>
+  </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">All Books</h4>
+          <button
+            class="btn btn-warning btn-round ml-auto"
+            data-toggle="modal"
+            data-target="#addRowModal"
+          >
+          <a href="/add-book" class="text-light">
+            <i class="fa fa-plus"></i>
+            Add Book
+            </a>
+          </button>
+        </div>
+      </div>
+    
+
+        <div class="table-responsive">
+          <table id="add-row" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Sn</th>
+                <th>Title</th>
+                <th>Catalogue</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th style="width: 10%">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% result.forEach((book, index) => {%>
+              <tr>
+                <td><%=++index%></td>
+                <td><%=book.title%></td>
+                <td><%=book.catalogue%></td>
+                <td><%=book.author%></td>
+                <td><%=book.price%></td>
+                <td>
+                  <div class="form-button-action">
+                    <button
+                      type="button"
+                      data-toggle="tooltip"
+                      title=""
+                      class="btn btn-link btn-primary btn-sm"
+                      data-original-title="View Book"
+                    >
+                    <a class="" href="/book/view/<%=book._id%>">
+                      <i class="fa fa-eye"></i>
+                      </>
+                    </button>
+                    <!-- <button
+                      type="button"
+                      data-toggle="tooltip"
+                      title=""
+                      class="btn btn-link btn-primary btn-sm"
+                      data-original-title="Edit Task"
+                    >
+                    <a class="" href=<%=book._id%>>
+                      <i class="fa fa-edit"></i>
+                      </>
+                    </button> -->
+                    <button
+                      type="button"
+                      data-toggle="tooltip"
+                      title=""
+                      class="btn btn-link btn-danger"
+                      data-original-title="Remove Book"
+                    >
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <%})%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const form = document.querySelector("form");
+
+  // const priceError = document.querySelector(".price.error");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    //reset errors
+
+    priceError.textContent = "";
+    //get value
+    const title = form.title.value;
+    const author = form.author.value;
+    const price = form.price.value;
+    const description = form.description.value;
+    const catalogue = form.catalogue.value;
+    const dp = form.dp.value;
+    const isbn = form.isbn.value;
+
+    console.log(title, author, price, description, catalogue, dp, isbn);
+    try {
+      // if (price === "") {
+      //   priceError.textContent = "Price cannot be empty!";
+      //   // console.log(confirmError.textContent);
+      // } else {
+        const res = await fetch("/book/create", {
+          method: "POST",
+          body: JSON.stringify({
+            title: title,
+            author: author,
+            price: price,
+            catalogue: catalogue,
+            description: description,
+            isbn: isbn,
+            dp: dp,
+          }),
+          headers: { "Content-type": "application/json" },
+        });
+        const data = await res.json();
+        console.log(data);
+        
+        if (data.success ==="true") {
+          location.assign("/admin/all-books");
+        }
+      
+    } catch (err) {
+      console.log(data.message);
+    }
+  });
+</script>

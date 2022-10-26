@@ -1,0 +1,189 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title">All Catalogue</h4>
+  </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">All Catalogue</h4>
+          <button
+            class="btn btn-warning btn-round ml-auto"
+            data-toggle="modal"
+            data-target="#addRowModal"
+          >
+            <i class="fa fa-plus"></i>
+            Create Catalogue
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="addRowModal"
+          tabindex="-1"
+          role="dialog"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header no-bd">
+                <h5 class="modal-title">
+                  <span class="fw-mediumbold"> Add</span>
+                  <span class="fw-light"> Catalogue </span>
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p class="small">Create Catalogue.</p>
+                <form>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group form-group-default">
+                        <label>Catalogue Name</label>
+                        <input
+                          id="addName"
+                          type="text"
+                          name="name"
+                          class="form-control"
+                          placeholder="Catalogue Name"
+                        />
+                        <div class="name error"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="comment">Catalogue Description</label>
+                        <textarea
+                          name="description"
+                          class="form-control"
+                          id="comment"
+                          rows="5"
+                        >
+                        </textarea>
+
+                        <div class="description error"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <input
+                        type="submit"
+                        value="add"
+                        class="btn btn-warning w-100"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- <div class="modal-footer no-bd">
+                <button type="button" id="addRowButton" class="btn btn-primary">
+                  Add
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table id="add-row" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Sn</th>
+                <th>Catalogue Name</th>
+                <th>Catalogue Description</th>
+
+                <th style="width: 10%">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% result.forEach((cat, index) => { %>
+              <tr key=<%= index %>>
+                <td><%= ++index %></td>
+              
+                <td><%=cat.name%></td>
+                <td><%=cat.description%></td>
+
+                <td>
+                  <div class="form-button-action">
+                    <!-- <button
+                      type="button"
+                      data-toggle="tooltip"
+                      title=""
+                      class="btn btn-link btn-primary btn-lg"
+                      data-original-title="Edit Task"
+                    >
+                      <i class="fa fa-eye"></i>
+                    </button> -->
+                    <button
+                      type="button"
+                      data-toggle="tooltip"
+                      title=""
+                      class="btn btn-link btn-danger"
+                      data-original-title="Remove"
+                    >
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </td>
+              </trkey>
+              <%})%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const form = document.querySelector("form");
+  // const emailError = document.querySelector(".email.error");
+  // const passwordError = document.querySelector(".password.error");
+  // const confirmError = document.querySelector(".confirm.error");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    //reset errors
+    // emailError.textContent = "";
+    // passwordError.textContent = "";
+    // confirmError.textContent = "";
+    //get value
+    const name = form.name.value;
+    const description = form.description.value;
+
+    console.log(name, description);
+    // try {
+    //   const res = await fetch("/catalogue/create", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       name: name,
+    //       description: description,
+    //     }),
+    //     headers: { "Content-type": "application/json" },
+    //   });
+    //   const data = await res.json();
+    //   console.log(data);
+
+    //   if (data.catalogue) {
+    //     location.assign("/");
+    //   }
+    // } catch (err) {
+    //   console.log("error creating catalogue");
+    // }
+  });
+</script>

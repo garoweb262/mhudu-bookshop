@@ -31,10 +31,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  PassSecret: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: [true, "please enter a password"],
     minlength: [8, "minimun password length is 8 character"],
+  },
+  date: {
+    type: String,
+    required: true,
   },
 });
 

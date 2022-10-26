@@ -5,11 +5,15 @@ const expressLayouts = require("express-ejs-layouts");
 const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
+const catalogueRoutes = require("./routes/catalogue");
+const bookRoutes = require("./routes/book");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const app = express();
 
 //middleware
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static("assets"));
 app.use("/css", express.static(__dirname + "assets/css"));
@@ -43,6 +47,8 @@ app.set("layout", "./layouts/full-width");
 app.use(userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/user", authRoutes);
+app.use("/book", bookRoutes);
+app.use("/catalogue", catalogueRoutes);
 app.get("*", checkUser);
 app.get("/set-cookies", (req, res) => {
   // res.setHeader("Set-Cookie", "newUser=true");

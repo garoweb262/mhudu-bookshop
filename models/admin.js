@@ -19,6 +19,10 @@ const adminSchema = new mongoose.Schema({
     required: [true, "please enter a password"],
     minlength: [8, "minimun password length is 8 character"],
   },
+  date: {
+    type: String,
+    required: true,
+  },
 });
 
 //fire a function before doc save to db
