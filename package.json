@@ -28,8 +28,10 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.5",
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20",
+    "sharp": "^0.31.1",
     "uuid": "^9.0.0",
     "validator": "^13.7.0"
   }
