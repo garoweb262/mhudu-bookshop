@@ -60,10 +60,9 @@
                   <div class="col-sm-6 my-2">
                   <div class="form-group">
                     <input
-                      type="text"
+                      type="file"
                       name="dp"
-                      placeholder="picture string"
-                      class="form-control"
+                       class="form-control"
                     />
                     <div class="name error"></div>
                   </div>
@@ -121,6 +120,7 @@
   </div>
 
 <script>
+
   const form = document.querySelector("form");
   const confirmError = document.querySelector(".confirm.error");
   const getCatalogue = async() =>{
@@ -164,7 +164,7 @@
       console.log(data);
 
       if (data) {
-        location.assign("/all-books");
+        location.assign("/book/all-books");
         confirmError.textContent = "Book Uploaded..!";
       } else confirmError.textContent = "Uploading Book Failed!";
     } catch (err) {

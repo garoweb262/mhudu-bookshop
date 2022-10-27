@@ -1,16 +1,24 @@
 const Book = require("../models/book");
-const { currentDate, uploadImage, randomPin } = require("../config/constants");
+const {
+  currentDate,
+  uploadImage,
+  randomPin,
+  getBase64,
+} = require("../config/constants");
 module.exports.create_book = async (req, res) => {
   let dates = currentDate();
-  let imagePin = randomPin();
-  // get base64 picture, decode and save to directory, change body.picture to given name and save
-  let imageData = req.body.dp;
-  let extension = imageData.includes("data:image/png") ? ".png" : ".jpg";
-  let imageName = "Book" + "_" + imagePin + "_" + req.body.title + extension;
-  // Save image here
-  uploadImage({ data: imageData, filename: imageName });
-  // new image name
-  req.body.dp = imageName;
+  let sampleFile;
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+
+  // name of the input is sampleFile
+  dp = req.files.sampleFile;
+  uploadPath = __dirname + "/uploads/pictures/" + dp.name;
+
+  console.log(dp);
   const { title, description, author, isbn, catalogue, dp, price } = req.body;
   try {
     const book = await Book.create({
@@ -19,7 +27,7 @@ module.exports.create_book = async (req, res) => {
       author,
       isbn,
       catalogue,
-      dp,
+      dp: dp.name,
       price,
       date: dates,
     });
@@ -30,10 +38,11 @@ module.exports.create_book = async (req, res) => {
   }
 };
 module.exports.get_all_book = (req, res) => {
-  Book.find().then((result, err) => {
+  Book.find().then(async (result, err) => {
     if (err) {
       console.log(err);
     } else {
+      // result.dp = await getBase64("uploads/pictures/" + result.dp);
       res.render("../views/pages/admin/all-books", {
         title: "All Books",
         layout: "./layouts/admin-dash",
