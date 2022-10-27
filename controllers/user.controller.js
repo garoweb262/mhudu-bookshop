@@ -113,7 +113,7 @@ module.exports.get_catalogue_form = (req, res) => {
       console.log(err);
     } else {
       res.render("../views/pages/admin/add-book", {
-        title: "All Books",
+        title: "Upload Books",
         layout: "./layouts/admin",
         result,
       });

@@ -5,38 +5,29 @@ const {
   randomPin,
   getBase64,
 } = require("../config/constants");
-module.exports.create_book = async (req, res) => {
-  let dates = currentDate();
-  let sampleFile;
-  let uploadPath;
 
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send("No files were uploaded.");
-  }
+// module.exports.create_book = async (req, res) => {
+//   let dates = currentDate();
+//   let pin = randomPin();
+//   const { title, description, author, isbn, catalogue, dp, price } = req.body;
+//   try {
+//     const book = await Book.create({
+//       title,
+//       description,
+//       author,
+//       isbn,
+//       catalogue,
+//       dp: pin,
+//       price,
+//       date: dates,
+//     });
 
-  // name of the input is sampleFile
-  dp = req.files.sampleFile;
-  uploadPath = __dirname + "/uploads/pictures/" + dp.name;
+//     res.status(201).json({ success: true, data: book });
+//   } catch (err) {
+//     res.status(400).json({ success: false, message: "error creating book" });
+//   }
+// };
 
-  console.log(dp);
-  const { title, description, author, isbn, catalogue, dp, price } = req.body;
-  try {
-    const book = await Book.create({
-      title,
-      description,
-      author,
-      isbn,
-      catalogue,
-      dp: dp.name,
-      price,
-      date: dates,
-    });
-
-    res.status(201).json({ success: true, data: book });
-  } catch (err) {
-    res.status(400).json({ success: false, message: "error creating book" });
-  }
-};
 module.exports.get_all_book = (req, res) => {
   Book.find().then(async (result, err) => {
     if (err) {

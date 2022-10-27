@@ -7,98 +7,17 @@
       <div class="card-header">
         <div class="d-flex align-items-center">
           <h4 class="card-title">All Catalogue</h4>
+          
           <button
-            class="btn btn-warning btn-round ml-auto"
-            data-toggle="modal"
-            data-target="#addRowModal"
-          >
+            class="btn btn-warning btn-round ml-auto"><a class="text-light" href="/add-catalogue">
             <i class="fa fa-plus"></i>
-            Create Catalogue
+            Create Catalogue  </a>
           </button>
+        
         </div>
       </div>
       <div class="card-body">
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="addRowModal"
-          tabindex="-1"
-          role="dialog"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header no-bd">
-                <h5 class="modal-title">
-                  <span class="fw-mediumbold"> Add</span>
-                  <span class="fw-light"> Catalogue </span>
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p class="small">Create Catalogue.</p>
-                <form>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group form-group-default">
-                        <label>Catalogue Name</label>
-                        <input
-                          id="addName"
-                          type="text"
-                          name="name"
-                          class="form-control"
-                          placeholder="Catalogue Name"
-                        />
-                        <div class="name error"></div>
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="comment">Catalogue Description</label>
-                        <textarea
-                          name="description"
-                          class="form-control"
-                          id="comment"
-                          rows="5"
-                        >
-                        </textarea>
-
-                        <div class="description error"></div>
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <input
-                        type="submit"
-                        value="add"
-                        class="btn btn-warning w-100"
-                      />
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!-- <div class="modal-footer no-bd">
-                <button type="button" id="addRowButton" class="btn btn-primary">
-                  Add
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div> -->
-            </div>
-          </div>
-        </div>
-
+        
         <div class="table-responsive">
           <table id="add-row" class="display table table-striped table-hover">
             <thead>

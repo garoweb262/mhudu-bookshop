@@ -11,7 +11,7 @@
             <h3 class="text-light text-center">Upload Book</h3>
           </div>
           <div class="card-body py-5 px-3">
-            <form>
+            <form action="/book/create" method="post" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-sm-6 my-2">
                   <div class="form-group">
@@ -106,6 +106,7 @@
                     <input
                       type="submit"
                       value="Add Book"
+                      name="submit"
                       class="btn btn-warning text-light w-100"
                     />
                   </div>
@@ -119,7 +120,7 @@
     </div>
   </div>
 
-<script>
+<!-- <script>
 
   const form = document.querySelector("form");
   const confirmError = document.querySelector(".confirm.error");
@@ -171,4 +172,4 @@
       console.log(err);
     }
   });
-</script>
+</script> -->
