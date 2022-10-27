@@ -26,7 +26,7 @@ router.post("/create", upload.single("dp"), async (req, res) => {
     } else {
       req.session.message = {
         type: "success",
-        message: "user added successfully!",
+        message: "image uploaded successfully!",
       };
       res.redirect("/book/all-books");
     }

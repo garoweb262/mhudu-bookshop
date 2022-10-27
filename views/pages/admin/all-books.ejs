@@ -2,6 +2,16 @@
   <div class="page-header">
     <h4 class="page-title">All Books</h4>
   </div>
+
+  <% if (message) { %>
+   <div class="alert  alert-dismissible fade show" alert-<%= message.type %> role="alert">
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+     
+    </button>
+    <strong><%= message.message %> </strong>
+   </div>
+  <% } %>
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
