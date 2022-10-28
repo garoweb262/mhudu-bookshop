@@ -1,5 +1,6 @@
 const Admin = require("../models/admin");
 const jwt = require("jsonwebtoken");
+const { currentDate } = require("../config/constants");
 //handle errors
 const handleErrors = (err) => {
   console.log(err.message, err.code);
@@ -34,7 +35,7 @@ const handleErrors = (err) => {
 
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, " muhdumarhudu", {
+  return jwt.sign({ id }, process.env.ADMIN_SECRET, {
     expiresIn: maxAge,
   });
 };
@@ -52,6 +53,7 @@ module.exports.get_admin_login = (req, res) => {
 };
 
 module.exports.sign_admin = async (req, res) => {
+  let todayDate = currentDate();
   const { name, email, password } = req.body;
 
   try {
@@ -59,6 +61,7 @@ module.exports.sign_admin = async (req, res) => {
       name,
       email,
       password,
+      date: todayDate,
     });
     const token = createToken(admin._id);
     res.cookie("admin", token, { httpOnly: true, maxAge: maxAge * 1000 });

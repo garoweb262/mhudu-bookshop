@@ -5,7 +5,7 @@ var nodemailer = require("nodemailer");
 module.exports = constant = {
   appName: "NoorwaBookshop",
   appMail: "muhdgazzali01@gmail.com",
-  appUrl: "http://localhost:3000",
+  appUrl: "http://localhost:8000",
   appHost: "localhost:8000", //node mailer uses this backend host
   paginate: (totalCount, limit, page) => {
     let pages = totalCount / limit;
@@ -154,7 +154,7 @@ module.exports = constant = {
 
     // Defineing the mail
     var mailOptions = {
-      from: "jabbama@gmail.com",
+      from: "muhdhgazzali01@gmail.com",
       to: email,
       subject: subject,
       // text: 'That was easy!'
@@ -175,27 +175,5 @@ module.exports = constant = {
 
     console.log(message);
     return true;
-  },
-
-  uploadImage: ({
-    data,
-    filename = "no_name.jpg",
-    path = "uploads/pictures/",
-  }) => {
-    fs.writeFile(
-      path + filename,
-      data
-        .replace("data:image/png;base64,", "")
-        .replace("data:image/jpeg;base64,", ""),
-      { encoding: "base64" },
-      function (err) {
-        console.log("File created");
-      }
-    );
-  },
-  getBase64: (src) => {
-    let bitm = fs.readFileSync(src);
-    let base64Image = Buffer.from(bitm).toString("base64");
-    return base64Image;
   },
 };

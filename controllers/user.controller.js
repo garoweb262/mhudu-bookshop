@@ -1,7 +1,12 @@
 const User = require("../models/user");
 const Catalogue = require("../models/catalogue");
 const jwt = require("jsonwebtoken");
-const { randomCode, currentDate, sendEMail } = require("../config/constants");
+const {
+  appUrl,
+  randomCode,
+  currentDate,
+  sendEMail,
+} = require("../config/constants");
 //handle errors
 const handleErrors = (err) => {
   console.log(err.message, err.code);
@@ -214,7 +219,7 @@ module.exports.updateUser = async (req, res) => {
       res.status(200).json({ success: true, message: "updated successfully" });
     })
     .catch((error) => {
-      res.status(500).json({ success: false, message: "error updating book" });
+      res.status(500).json({ success: false, message: "error updating User" });
     });
 };
 module.exports.deleteUser = async (req, res) => {
@@ -228,17 +233,15 @@ module.exports.deleteUser = async (req, res) => {
     });
 };
 module.exports.updatePin = (req, res) => {
-  const PassSecret = req.query.passSecret;
-  const email = req.query.email;
-  let pin = passPin();
+  let pin = randomCode();
   console.log(pin);
   User.findOne({ email: req.body.email })
     .then((result) => {
       if (result) {
         let email = req.body.email;
-        let mailMessage = `Hello use the following link to reset your Password ${fAppUrl}/update-password?passSecret=${pin}`;
+        let mailMessage = `Hello use the following link to reset your Password ${appUrl}/forget-pass?passSecret=${pin}`;
         sendEMail(email, `${appName} Password Reset`, mailMessage);
-        User.updateOne({ passSecret: pin }, { email: email }).then((user) => {
+        User.updateOne({ email: email }, { passSecret: pin }).then((user) => {
           res.status(200).json({
             message: "Pin updated...!!!",
             success: true,

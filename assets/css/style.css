@@ -71,10 +71,18 @@ a:focus {
 .tom {
   color: #ffad46;
 }
+.hoverm {
+  color: #ffad46;
+}
 .tom:hover,
 .tom:focus {
   color: #ffad46;
 }
+.hoverm:hover,
+.hoverm:focus {
+  color: #ffad46;
+}
+
 ul,
 ol {
   padding: 0;
