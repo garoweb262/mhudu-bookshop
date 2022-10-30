@@ -10,8 +10,8 @@
             <div class="col-lg-6">
               <div class="view-img">
                 <img
-                  src="<%=result.dp %>"
-                  class="img-fluid w-50 h-50"
+                  src="/<%= result.dp %>"
+                  class="img-fluid w-100 h-100"
                   alt="/"
                   srcset=""
                 />
@@ -49,7 +49,14 @@
                   result.isbn %>
                 </p>
               </div>
-              <div class=""></div>
+              <div class="row my-3">
+                <a class="mx-3" href="/book/edit/<%= result._id %>"
+                  ><button class="btn btn-success w-100 mx-1">Edit</button></a
+                >
+                <a href="/book/delete/<%= result._id %>"
+                  ><button class="btn btn-danger w-100 mx-1">Delete</button></a
+                >
+              </div>
             </div>
           </div>
         </div>

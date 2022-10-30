@@ -105,13 +105,6 @@ module.exports.get_catalogue_add = (req, res) => {
     layout: "./layouts/admin",
   });
 };
-
-module.exports.get_allBooks = (req, res) => {
-  res.render("../views/pages/admin/all-books", {
-    title: "All Books",
-    layout: "./layouts/admin-dash",
-  });
-};
 module.exports.get_catalogue_form = (req, res) => {
   Catalogue.find().then((result, err) => {
     if (err) {
@@ -222,15 +215,19 @@ module.exports.updateUser = async (req, res) => {
       res.status(500).json({ success: false, message: "error updating User" });
     });
 };
-module.exports.deleteUser = async (req, res) => {
+module.exports.delete_user = async (req, res) => {
   const id = req.params.id;
-  User.findByIdAndRemove(id)
-    .then((result) => {
-      res.status(200).json({ success: true, message: "deleted successfully" });
-    })
-    .catch((error) => {
-      res.status(500).json({ success: false, message: "error deleting book" });
-    });
+  User.findByIdAndRemove(id, (err, result) => {
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      req.session.message = {
+        type: "info",
+        message: "user deleted successfully!",
+      };
+      res.redirect("/all-users");
+    }
+  });
 };
 module.exports.updatePin = (req, res) => {
   let pin = randomCode();

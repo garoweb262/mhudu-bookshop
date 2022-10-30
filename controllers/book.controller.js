@@ -5,35 +5,12 @@ const {
   randomPin,
   getBase64,
 } = require("../config/constants");
-
-// module.exports.create_book = async (req, res) => {
-//   let dates = currentDate();
-//   let pin = randomPin();
-//   const { title, description, author, isbn, catalogue, dp, price } = req.body;
-//   try {
-//     const book = await Book.create({
-//       title,
-//       description,
-//       author,
-//       isbn,
-//       catalogue,
-//       dp: pin,
-//       price,
-//       date: dates,
-//     });
-
-//     res.status(201).json({ success: true, data: book });
-//   } catch (err) {
-//     res.status(400).json({ success: false, message: "error creating book" });
-//   }
-// };
-
+const fs = require("fs");
 module.exports.get_all_book = (req, res) => {
   Book.find().then(async (result, err) => {
     if (err) {
       console.log(err);
     } else {
-      // result.dp = await getBase64("uploads/pictures/" + result.dp);
       res.render("../views/pages/admin/all-books", {
         title: "All Books",
         layout: "./layouts/admin-dash",
@@ -43,10 +20,10 @@ module.exports.get_all_book = (req, res) => {
   });
 };
 module.exports.get_edit_book = async (req, res) => {
-  const id = req.params.id;
+  let id = req.params.id;
   Book.findById(id).then((result, err) => {
     if (err) {
-      console.log(err);
+      res.redirect("/book/all-book");
     } else {
       res.render("../views/pages/admin/edit-book", {
         title: "Edit Books",
@@ -57,7 +34,7 @@ module.exports.get_edit_book = async (req, res) => {
   });
 };
 module.exports.get_view_book = async (req, res) => {
-  const id = req.params.id;
+  let id = req.params.id;
   Book.findById(id).then((result, err) => {
     if (err) {
       console.log(err);
@@ -71,22 +48,62 @@ module.exports.get_view_book = async (req, res) => {
   });
 };
 module.exports.updatebook = async (req, res) => {
+  let dates = currentDate();
   const id = req.params.id;
-  Book.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then((result) => {
-      res.status(200).json({ success: true, message: "updated successfully" });
-    })
-    .catch((error) => {
-      res.status(500).json({ success: false, message: "error updating book" });
-    });
+  let new_image = "";
+  if (req.file) {
+    new_image = req.file.filename;
+    try {
+      fs.unlinkSync("./uploads/" + req.body.old_image);
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    new_image = req.body.old_image;
+  }
+  Book.findByIdAndUpdate(
+    id,
+    {
+      title: req.body.title,
+      description: req.body.description,
+      author: req.body.author,
+      isbn: req.body.isbn,
+      catalogue: req.body.catalogue,
+      dp: new_image,
+      price: req.body.price,
+      date: dates,
+    },
+    (err, result) => {
+      if (err) {
+        res.json({ message: err.message, type: "danger" });
+      } else {
+        req.session.message = {
+          type: "success",
+          message: "book updated successfully!",
+        };
+        res.redirect("/book/all-books");
+      }
+    }
+  );
 };
 module.exports.deletebook = async (req, res) => {
   const id = req.params.id;
-  Book.findByIdAndRemove(id)
-    .then((result) => {
-      res.status(200).json({ success: true, message: "deleted successfully" });
-    })
-    .catch((error) => {
-      res.status(500).json({ success: false, message: "error deleting book" });
-    });
+  Book.findByIdAndRemove(id, (err, result) => {
+    if (result.dp != "") {
+      try {
+        fs.unlinkSync("./uploads/" + result.dp);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      req.session.message = {
+        type: "info",
+        message: "book deleted successfully!",
+      };
+      res.redirect("/book/all-books");
+    }
+  });
 };

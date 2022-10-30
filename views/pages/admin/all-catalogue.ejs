@@ -2,6 +2,20 @@
   <div class="page-header">
     <h4 class="page-title">All Catalogue</h4>
   </div>
+  <% if (message) { %>
+  <div class="alert alert-dismissible fade show" alert-<%="message.type" %>
+    role="alert">
+    <button
+      type="button"
+      class="btn-close"
+      data-dismiss="alert"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong><%= message.message %> </strong>
+  </div>
+  <% } %>
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
@@ -19,6 +33,7 @@
       <div class="card-body">
         
         <div class="table-responsive">
+            <% if (result != "") { %>
           <table id="add-row" class="display table table-striped table-hover">
             <thead>
               <tr>
@@ -40,23 +55,17 @@
 
                 <td>
                   <div class="form-button-action">
-                    <!-- <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-lg"
-                      data-original-title="Edit Task"
-                    >
-                      <i class="fa fa-eye"></i>
-                    </button> -->
-                    <button
+                    
+                   <button
                       type="button"
                       data-toggle="tooltip"
                       title=""
                       class="btn btn-link btn-danger"
-                      data-original-title="Remove"
+                      data-original-title="Remove User"
                     >
-                      <i class="fa fa-times"></i>
+                      <a href="/catalogue/delete/<%= cat._id %>">
+                        <i class="fa fa-times text-danger"></i
+                      ></a>
                     </button>
                   </div>
                 </td>
@@ -64,45 +73,18 @@
               <%})%>
             </tbody>
           </table>
+            <% } else { %>
+          <h1 class="text-warning">No Catalogue found</h1>
+          <% } %>
         </div>
       </div>
     </div>
   </div>
 </div>
 <script>
-  const form = document.querySelector("form");
-  // const emailError = document.querySelector(".email.error");
-  // const passwordError = document.querySelector(".password.error");
-  // const confirmError = document.querySelector(".confirm.error");
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    //reset errors
-    // emailError.textContent = "";
-    // passwordError.textContent = "";
-    // confirmError.textContent = "";
-    //get value
-    const name = form.name.value;
-    const description = form.description.value;
-
-    console.log(name, description);
-    // try {
-    //   const res = await fetch("/catalogue/create", {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       name: name,
-    //       description: description,
-    //     }),
-    //     headers: { "Content-type": "application/json" },
-    //   });
-    //   const data = await res.json();
-    //   console.log(data);
-
-    //   if (data.catalogue) {
-    //     location.assign("/");
-    //   }
-    // } catch (err) {
-    //   console.log("error creating catalogue");
-    // }
+  $(document).ready(function () {
+    $("table").DataTable({
+      order: [0, "desc"],
+    });
   });
 </script>

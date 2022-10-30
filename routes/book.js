@@ -32,11 +32,11 @@ router.post("/create", upload.single("dp"), async (req, res) => {
     }
   });
 });
-// router.post("/create", upload.single("dp"), bookController.create_book);
+
 router.get("/all-books", bookController.get_all_book);
 router.get("/edit/:id", bookController.get_edit_book);
 router.get("/view/:id", bookController.get_view_book);
-router.put("/:id", bookController.updatebook);
-router.delete("/:id", bookController.deletebook);
+router.post("/update/:id", upload.single("dp"), bookController.updatebook);
+router.get("/delete/:id", bookController.deletebook);
 
 module.exports = router;

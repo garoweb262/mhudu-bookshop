@@ -17,10 +17,8 @@ router.get("/my-books", requireAuth, userController.get_my_books);
 router.get("/logout", userController.get_logout);
 router.get("/add-catalogue", userController.get_catalogue_add);
 router.get("/add-book", userController.get_catalogue_form);
-router.get("/all-books", userController.get_allBooks);
-// router.get("/all-catalogue", userController.get_allCatalogue);
 router.get("/all-purchase", userController.get_allPurchase);
 router.get("/all-rents", userController.get_allRental);
 router.get("/all-users", userController.get_allUsers);
-
+router.get("/delete/:id", userController.delete_user);
 module.exports = router;

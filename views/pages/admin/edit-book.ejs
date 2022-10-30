@@ -8,42 +8,42 @@
       <div class="col-lg-4 col-md-12">
         <div class="card my-5">
           <div class="card-header bg-warning">
-            <h3 class="text-light text-center">Upload Book</h3>
+            <h3 class="text-light text-center">Edit Book</h3>
           </div>
           <div class="card-body py-5 px-3">
-            <form>
+            <form action="/book/update/<%= result._id %>" method="post" enctype="multipart/form-data">
               <div class="row">
-                <div class="col-sm-6 my-2">
+                <div class="col-12 my-2">
                   <div class="form-group">
                     <input
                       type="text"
                       name="title"
-                      value=<%= result.title %>
+                      value="<%= result.title %>"
                       placeholder="Book Title"
                       class="form-control"
                     />
                     <div class="name error"></div>
                   </div>
                 </div>
-                <div class="col-sm-6 my-2">
+                <div class="col-12 my-2">
                   <div class="form-group">
                     <input
                       type="text"
                       name="author"
-                      value=<%= result.author %>
+                      value="<%= result.author %>"
                       placeholder="Book Author"
                       class="form-control"
                     />
                     <div class="name error"></div>
                   </div>
                 </div>
-                <div class="col-sm-6 my-2">
+                <div class="col-12 my-2">
                   <div class="form-group">
                     <input
                       type="text"
                       name="price"
                       placeholder="Book Price"
-                      value=<%= result.price %>
+                      value="<%= result.price %>"
                       class="form-control"
 
                        
@@ -51,31 +51,32 @@
                     <div class="name error"></div>
                   </div>
                 </div>
-                <div class="col-sm-6 my-2">
+                <div class="col-12 my-2">
                   <div class="form-group">
                     <input
                       type="text"
                       name="isbn"
-                      value=<%= result.isbn %>
+                      value="<%= result.isbn %>"
                       placeholder="Book ISBN No"
                       class="form-control"
                     />
                     <div class="name error"></div>
                   </div>
                 </div>
-                  <div class="col-sm-6 my-2">
+                  <div class="col-12 my-2">
                   <div class="form-group">
                     <input
-                      type="text"
+                      type="file"
                       name="dp"
-                      value=<%= result.dp %>
-                      placeholder="picture string"
                       class="form-control"
                     />
                     <div class="name error"></div>
                   </div>
+                    <div class="col-12 my-2">
+                  <img src="/<%= result.dp %> " class="img-thumbnail mt-1" alt="/" srcset="">
                 </div>
-                <div class="col-sm-6 my-2">
+                <input type="hidden" name="old_image" value="<%= result.dp %>" />
+                <div class="col-12 my-2">
                    <div class="form-group">
                            
                             <select
@@ -84,23 +85,24 @@
                               class="form-control w-100"
                               id="exampleFormControlSelect1"
                             >
-                           <option     value=<%= result.catalogue %>><%= result.catalogue %></option>
+                           <option     value="<%= result.catalogue%>"><%= result.catalogue %></option>
                                     
                           </select>
                             <div class="catalogue error"></div>
                           </div>
                 </div>
+               
                 <div class="col-12 my-2">
                   <div class="form-group">
                     <label class="text-dark" for="comment">Catalogue Description</label>
 
                     <textarea
                       name="description"
-                      value=<%= result.description %>
+                      value="<%= result.description %>"
                       class="form-control"
                       colums="15"
                       id="comment"
-                      placeholder="catalogue description"
+                      placeholder="<%= result.description %>"
                       rows="5"
                     >
                     </textarea>
@@ -126,55 +128,3 @@
     </div>
   </div>
 
-<script>
-  const form = document.querySelector("form");
-  const confirmError = document.querySelector(".confirm.error");
-  const getCatalogue = async() =>{
-  const result = await fetch("/catalogue", {
-        method: "GET",
-        headers: { "Content-type": "application/json" },
-      });
-      const res = await result.json();
-      console.log(res);
-  }
-   
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    confirmError.textContent = "";
-    //get value
-    const title = form.title.value;
-    const description = form.description.value;
-    const author = form.author.value;
-    const dp = form.dp.value;
-    const isbn = form.isbn.value;
-    const catalogue = form.catalogue.value;
-    const price = form.price.value;
-
-    // console.log(form.name.value, description);
-    try {
-
-      const res = await fetch("/book/:id", {
-        method: "PUT",
-        body: JSON.stringify({
-          title: title,
-          author:author,
-          dp:dp,
-          isbn:isbn,
-          catalogue:catalogue,
-          price:price,
-          description: description,
-        }),
-        headers: { "Content-type": "application/json" },
-      });
-      const data = await res.json();
-      console.log(data);
-
-      if (data) {
-        location.assign("/all-books");
-        confirmError.textContent = "Book Updated successfully..!";
-      } else confirmError.textContent = "Updatingg Book Failed!";
-    } catch (err) {
-      console.log(err);
-    }
-  });
-</script>

@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 // app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("assets"));
-app.use("/uploads/pictures", express.static("uploads/pictures"));
+app.use(express.static("uploads"));
 app.use("/css", express.static(__dirname + "assets/css"));
 app.use("/js", express.static(__dirname + "assets/js"));
 app.use("/img", express.static(__dirname + "assets/img"));
@@ -48,32 +48,32 @@ const { checkUser } = require("./middlewares/verify");
 
 //offline database
 
-// const config = require("./config/database");
-// const connection = mongoose.connect(config.database, {
-//   useUnifiedTopology: true,
-// });
-// if (connection) {
-//   console.log("database connected offline");
-// } else {
-//   console.log("database connection error");
-// }
+const config = require("./config/database");
+const connection = mongoose.connect(config.database, {
+  useUnifiedTopology: true,
+});
+if (connection) {
+  console.log("database connected offline");
+} else {
+  console.log("database connection error");
+}
 
 //to use online database uncomment the below lines
 
-const url = `mongodb+srv://garoweb:garo1234@cluster0.seairip.mongodb.net/bookshop`;
+// const url = `mongodb+srv://garoweb:garo1234@cluster0.seairip.mongodb.net/bookshop`;
 
-const connectionParams = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-mongoose
-  .connect(url, connectionParams)
-  .then(() => {
-    console.log("Connected to online database ");
-  })
-  .catch((err) => {
-    console.error(`Error connecting to the database. n${err}`);
-  });
+// const connectionParams = {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// };
+// mongoose
+//   .connect(url, connectionParams)
+//   .then(() => {
+//     console.log("Connected to online database ");
+//   })
+//   .catch((err) => {
+//     console.error(`Error connecting to the database. n${err}`);
+//   });
 
 app.use(expressLayouts);
 

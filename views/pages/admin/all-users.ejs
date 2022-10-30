@@ -2,6 +2,20 @@
   <div class="page-header">
     <h4 class="page-title">All Users</h4>
   </div>
+  <% if (message) { %>
+  <div class="alert alert-dismissible fade show" alert-<%="message.type" %>
+    role="alert">
+    <button
+      type="button"
+      class="btn-close"
+      data-dismiss="alert"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong><%= message.message %> </strong>
+  </div>
+  <% } %>
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
@@ -11,6 +25,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
+          <% if (user != "") { %>
           <table id="add-row" class="display table table-striped table-hover">
             <thead>
               <tr>
@@ -35,19 +50,12 @@
                       type="button"
                       data-toggle="tooltip"
                       title=""
-                      class="btn btn-link btn-primary btn-lg"
-                      data-original-title="Edit Task"
-                    >
-                      <i class="fa fa-eye"></i>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
                       class="btn btn-link btn-danger"
-                      data-original-title="Remove"
+                      data-original-title="Remove User"
                     >
-                      <i class="fa fa-times"></i>
+                      <a href="/delete/<%= user._id %>">
+                        <i class="fa fa-times text-danger"></i
+                      ></a>
                     </button>
                   </div>
                 </td>
@@ -55,8 +63,18 @@
               <%})%>
             </tbody>
           </table>
+          <% } else { %>
+          <h1 class="text-warning">No User found</h1>
+          <% } %>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function () {
+    $("table").DataTable({
+      order: [0, "desc"],
+    });
+  });
+</script>

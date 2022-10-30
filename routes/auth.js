@@ -8,6 +8,5 @@ router.get("/:id", userController.get_one_User);
 // router.put("/:id", userController.updateUser);
 router.put("/send-mail", userController.updatePin);
 // router.put("/forget-pass", userController.updatePass);
-router.delete("/:id", userController.deleteUser);
 
 module.exports = router;

@@ -55,15 +55,17 @@ module.exports.updatecatalogue = async (req, res) => {
         .json({ success: false, message: "error updating catalogues" });
     });
 };
-module.exports.deletecatalogue = async (req, res) => {
+module.exports.delete_catalogue = async (req, res) => {
   const id = req.params.id;
-  Catalogue.findByIdAndRemove(id)
-    .then((result) => {
-      res.status(200).json({ success: true, message: "deleted successfully" });
-    })
-    .catch((error) => {
-      res
-        .status(500)
-        .json({ success: false, message: "error deleting catalogues" });
-    });
+  Catalogue.findByIdAndRemove(id, (err, result) => {
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      req.session.message = {
+        type: "info",
+        message: "catalogue deleted successfully!",
+      };
+      res.redirect("/catalogue/all-catalogue");
+    }
+  });
 };
