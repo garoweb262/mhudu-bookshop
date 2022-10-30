@@ -46,34 +46,35 @@ const APP_PORT = 8000;
 app.set("view engine", "ejs");
 const { checkUser } = require("./middlewares/verify");
 
+const config = require("./config/database");
+
 //offline database
 
-const config = require("./config/database");
-const connection = mongoose.connect(config.database, {
-  useUnifiedTopology: true,
-});
-if (connection) {
-  console.log("database connected offline");
-} else {
-  console.log("database connection error");
-}
+// const connection = mongoose.connect(config.database, {
+//   useUnifiedTopology: true,
+// });
+// if (connection) {
+//   console.log("database connected offline");
+// } else {
+//   console.log("database connection error");
+// }
 
 //to use online database uncomment the below lines
 
-// const url = `mongodb+srv://garoweb:garo1234@cluster0.seairip.mongodb.net/bookshop`;
+const url = config.db;
 
-// const connectionParams = {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// };
-// mongoose
-//   .connect(url, connectionParams)
-//   .then(() => {
-//     console.log("Connected to online database ");
-//   })
-//   .catch((err) => {
-//     console.error(`Error connecting to the database. n${err}`);
-//   });
+const connectionParams = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+mongoose
+  .connect(url, connectionParams)
+  .then(() => {
+    console.log("Connected to online database ");
+  })
+  .catch((err) => {
+    console.error(`Error connecting to the database. n${err}`);
+  });
 
 app.use(expressLayouts);
 
