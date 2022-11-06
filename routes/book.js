@@ -1,12 +1,21 @@
 const Router = require("express");
 const bookController = require("../controllers/book.controller");
 const upload = require("../middlewares/uploadMiddleware");
-const { currentDate } = require("../config/constants");
+const { currentDate, appUrl, randomCode } = require("../config/constants");
 const Book = require("../models/book");
+
 const router = Router();
 
-router.post("/create", upload.single("dp"), async (req, res) => {
+router.post("/create", upload.array("dp", 3), async (req, res) => {
   let dates = currentDate();
+  let pin = randomCode();
+  const reqFiles = [];
+  // const url = req.protocol + "://" + req.get("host");
+  for (var i = 0; i < req.files.length; i++) {
+    reqFiles.push(req.files[i].filename);
+  }
+
+  const strImages = reqFiles.join(" ");
   const { title, description, author, isbn, catalogue, price } = req.body;
 
   const book = await Book.create({
@@ -15,7 +24,7 @@ router.post("/create", upload.single("dp"), async (req, res) => {
     author,
     isbn,
     catalogue,
-    dp: req.file.filename,
+    dp: strImages,
     price,
     date: dates,
   });
@@ -36,6 +45,7 @@ router.post("/create", upload.single("dp"), async (req, res) => {
 router.get("/all-books", bookController.get_all_book);
 router.get("/edit/:id", bookController.get_edit_book);
 router.get("/view/:id", bookController.get_view_book);
+router.get("/open-pdf/:id", bookController.openPdf);
 router.post("/update/:id", upload.single("dp"), bookController.updatebook);
 router.get("/delete/:id", bookController.deletebook);
 
