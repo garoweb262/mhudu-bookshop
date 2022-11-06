@@ -45,7 +45,27 @@ router.post("/create", upload.array("dp", 3), async (req, res) => {
 router.get("/all-books", bookController.get_all_book);
 router.get("/edit/:id", bookController.get_edit_book);
 router.get("/view/:id", bookController.get_view_book);
-router.get("/open-pdf/:id", bookController.openPdf);
+router.get("/open-pdf/:id", async (req, res) => {
+  let id = req.params.id;
+  let data = await Book.findOne({ id: id });
+  if (data) {
+    data.dp = data.dp.split(" ");
+    pdf = data.dp.split(" ")[1];
+    var file = fs.createReadStream(`./uploads/${pdf}`);
+    var stat = fs.statSync(`./uploads/${pdf}`);
+    res.setHeader("Content-Length", stat.size);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `attachment; filename=${data.title}`);
+    file.pipe(res);
+    var datas = fs.readFileSync(`/${pdf}`);
+    res.contentType("application/pdf");
+    res.send(datas);
+  } else {
+    res.status(404).json({
+      message: "book not found",
+    });
+  }
+});
 router.post("/update/:id", upload.single("dp"), bookController.updatebook);
 router.get("/delete/:id", bookController.deletebook);
 
