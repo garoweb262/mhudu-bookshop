@@ -296,21 +296,20 @@ module.exports.updatePass = (req, res) => {
     });
 };
 module.exports.get_product = async (req, res) => {
-  let data = await Book.find();
-  if (data) {
-    for (let i = 0; i < data.length; i++) {
-      data[i].dp = data[i].dp.split(" ");
-      pic = data[i].dp.split(" ")[0];
+  Book.find().exec((err, books) => {
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      for (i = 0; i < books.length; i++) {
+        pic = books[i].dp;
+      }
       console.log(pic);
+      res.render("../views/pages/guest/index", {
+        title: "MH Bookshop",
+        layout: "./layouts/full-width",
+        result: books,
+        pic: pic,
+      });
     }
-
-    res.render("../views/pages/guest/index", {
-      title: "Mh bookshop",
-      layout: "./layouts/full-width",
-      result: data,
-      picData: pic,
-    });
-  } else {
-    res.status(500).json({ message: "no book..!" });
-  }
+  });
 };

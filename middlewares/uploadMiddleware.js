@@ -1,14 +1,14 @@
 const multer = require("multer");
 const { randomCode } = require("../config/constants");
 let pin = randomCode();
+const path = require("path");
 let storage = multer.diskStorage({
   destination: function (req, res, cb) {
     cb(null, "./uploads/");
   },
 
   filename: (req, file, cb) => {
-    const fileName = file.originalname.toLowerCase().split(" ").join("-");
-    cb(null, pin + "." + fileName.split(".")[1]);
+    cb(null, file.fieldname + "-" + Date.now() + "_" + file.originalname);
   },
 });
 var upload = multer({

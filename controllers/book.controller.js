@@ -37,28 +37,18 @@ module.exports.get_edit_book = async (req, res) => {
 };
 module.exports.get_view_book = async (req, res) => {
   let id = req.params.id;
-  const dirPath = path.join(__dirname, "../uploads");
-  let data = await Book.findOne({ id: id });
-  if (data) {
-    data.dp = data.dp.split(" ");
-    pic = data.dp.split(" ")[0];
-    pdf = data.dp.split(" ")[1];
-    const files = fs.readdirSync(dirPath, {
-      name: path.basename("46D378", ".pdf"),
-      url: "localhost:8000/uploads/46D378",
-    });
-    res.render("../views/pages/admin/view-book", {
-      title: `Book/${data.title}`,
-      layout: "./layouts/admin-dash",
-      result: data,
-      picData: pic,
-      files,
-    });
-  } else {
-    res.status(404).json({
-      message: "book not found",
-    });
-  }
+  Book.findOne({ id: id }).exec((err, book) => {
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      console.log(book.dp);
+      res.render("../views/pages/admin/view-book", {
+        title: `${book.title}`,
+        layout: "./layouts/admin-dash",
+        result: book,
+      });
+    }
+  });
 };
 module.exports.updatebook = async (req, res) => {
   let dates = currentDate();

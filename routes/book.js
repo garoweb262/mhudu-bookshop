@@ -9,14 +9,6 @@ const router = Router();
 
 router.post("/create", upload.single("dp"), async (req, res) => {
   let dates = currentDate();
-  // let pin = randomCode();
-  // const reqFiles = [];
-  // // const url = req.protocol + "://" + req.get("host");
-  // for (var i = 0; i < req.files.length; i++) {
-  //   reqFiles.push(req.files[i].filename);
-  // }
-
-  // const strImages = reqFiles.join(" ");
   const { title, description, author, isbn, catalogue, price } = req.body;
 
   const book = await Book.create({
