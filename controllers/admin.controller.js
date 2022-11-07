@@ -85,6 +85,7 @@ module.exports.login_admin = async (req, res) => {
     res.status(400).json({ errors });
   }
 };
+
 module.exports.get_logout = async (req, res) => {
   res.cookie("admin", "", { maxAge: 1 });
   res.redirect("/admin");
