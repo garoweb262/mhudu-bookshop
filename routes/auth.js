@@ -1,5 +1,6 @@
 const Router = require("express");
 const userController = require("../controllers/user.controller");
+const uploadProfile = require("../middlewares/picMiddleware");
 const router = Router();
 router.post("/register", userController.sign_user);
 router.post("/login", userController.login_user);

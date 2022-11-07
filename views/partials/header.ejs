@@ -31,7 +31,9 @@
         <div class="header__cart">
           <ul>
             <% if (user) { %>
-            <li class="text-warning"><%= user.name %></li>
+            <li class="text-warning">
+              <a class="hoverm" href="/dashboard"><%= user.name %></a>
+            </li>
             <li>
               <a href="#"><i class="fa fa-shopping-cart text-warning"></i> </a>
             </li>

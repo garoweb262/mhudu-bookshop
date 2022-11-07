@@ -146,7 +146,7 @@ module.exports.get_allRental = (req, res) => {
 };
 module.exports.sign_user = async (req, res) => {
   let dates = currentDate();
-  const { name, email, phone, street, lga, state, password } = req.body;
+  const { name, email, phone, street, password } = req.body;
 
   try {
     const user = await User.create({
@@ -154,8 +154,6 @@ module.exports.sign_user = async (req, res) => {
       email,
       phone,
       street,
-      lga,
-      state,
       PassSecret: randomCode(),
       password,
       date: dates,
@@ -303,7 +301,7 @@ module.exports.get_product = async (req, res) => {
       for (i = 0; i < books.length; i++) {
         pic = books[i].dp;
       }
-      console.log(pic);
+
       res.render("../views/pages/guest/index", {
         title: "MH Bookshop",
         layout: "./layouts/full-width",

@@ -23,14 +23,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  lga: {
-    type: String,
-    required: true,
-  },
-  state: {
-    type: String,
-    required: true,
-  },
   PassSecret: {
     type: String,
     required: true,
