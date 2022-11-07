@@ -3,7 +3,7 @@ const userController = require("../controllers/user.controller");
 const { requireAuth, checkUser } = require("../middlewares/verify");
 const router = Router();
 router.get("*", checkUser);
-router.get("/", userController.get_home);
+router.get("/", userController.get_product);
 router.get("/about", userController.get_about);
 router.get("/contact", userController.get_contact);
 router.get("/login", userController.get_login);

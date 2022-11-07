@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Catalogue = require("../models/catalogue");
+const Book = require("../models/book");
 const jwt = require("jsonwebtoken");
 const {
   appUrl,
@@ -46,9 +47,9 @@ const createToken = (id) => {
   });
 };
 
-module.exports.get_home = (req, res) => {
-  res.render("../views/pages/guest/index", { title: "Home Noorwa bookshop" });
-};
+// module.exports.get_home = (req, res) => {
+//   res.render("../views/pages/guest/index", { title: "Home Noorwa bookshop" });
+// };
 module.exports.get_about = (req, res) => {
   res.render("../views/pages/guest/about", { title: "About Noorwa bookshop" });
 };
@@ -293,4 +294,23 @@ module.exports.updatePass = (req, res) => {
         error: error,
       });
     });
+};
+module.exports.get_product = async (req, res) => {
+  let data = await Book.find();
+  if (data) {
+    for (let i = 0; i < data.length; i++) {
+      data[i].dp = data[i].dp.split(" ");
+      pic = data[i].dp.split(" ")[0];
+      console.log(pic);
+    }
+
+    res.render("../views/pages/guest/index", {
+      title: "Mh bookshop",
+      layout: "./layouts/full-width",
+      result: data,
+      picData: pic,
+    });
+  } else {
+    res.status(500).json({ message: "no book..!" });
+  }
 };

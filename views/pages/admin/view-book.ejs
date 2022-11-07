@@ -48,8 +48,10 @@
                   <span class="bold-text text-dark">ISBN NO:</span><%=
                   result.isbn %>
                 </p>
-                <a class="mx-3" href="/book/open-pdf/<%= result._id %>"
-                  ><button class="btn btn-success w-50 mx-5">Pdf</button></a
+                <a class="mx-3" href="<%= files.url %>"
+                  ><button class="btn btn-success w-50 mx-5">
+                    <%= result.title %>
+                  </button></a
                 >
               </div>
               <div class="row my-3">

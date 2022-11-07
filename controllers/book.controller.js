@@ -5,7 +5,9 @@ const {
   randomPin,
   getBase64,
 } = require("../config/constants");
-var fs = require("fs");
+const fs = require("fs");
+const path = require("path");
+
 module.exports.get_all_book = (req, res) => {
   Book.find().then(async (result, err) => {
     if (err) {
@@ -35,18 +37,22 @@ module.exports.get_edit_book = async (req, res) => {
 };
 module.exports.get_view_book = async (req, res) => {
   let id = req.params.id;
+  const dirPath = path.join(__dirname, "../uploads");
   let data = await Book.findOne({ id: id });
   if (data) {
     data.dp = data.dp.split(" ");
     pic = data.dp.split(" ")[0];
     pdf = data.dp.split(" ")[1];
-
+    const files = fs.readdirSync(dirPath, {
+      name: path.basename("46D378", ".pdf"),
+      url: "localhost:8000/uploads/46D378",
+    });
     res.render("../views/pages/admin/view-book", {
       title: `Book/${data.title}`,
       layout: "./layouts/admin-dash",
       result: data,
       picData: pic,
-      pdfData: pdf,
+      files,
     });
   } else {
     res.status(404).json({
@@ -119,7 +125,7 @@ module.exports.deletebook = async (req, res) => {
   Book.findByIdAndRemove(id, (err, result) => {
     if (result.dp != "") {
       try {
-        fs.unlinkSync("./uploads/" + result.dp);
+        fs.unlinkSync("./uploads/" + result.dp.split(""));
       } catch (err) {
         console.log(err);
       }

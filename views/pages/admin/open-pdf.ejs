@@ -1,0 +1,14 @@
+  <body>
+    <header>
+      <h1>
+        <img src="/img/logo.svg" width="200">
+      </h1>
+      <ul>
+        <% files.map(file => { %>
+          <li>
+            <a href="<%= file.url %>"><%= file.name %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </header>
+  </body>
