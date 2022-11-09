@@ -51,29 +51,60 @@ const createToken = (id) => {
 //   res.render("../views/pages/guest/index", { title: "Home Noorwa bookshop" });
 // };
 module.exports.get_about = (req, res) => {
-  res.render("../views/pages/guest/about", { title: "About Noorwa bookshop" });
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/about", {
+      title: "About",
+      data: catalogue,
+    });
+  });
 };
 module.exports.get_contact = (req, res) => {
-  res.render("../views/pages/guest/contact", {
-    title: "Contact Noorwa bookshop",
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/contact", {
+      title: "Contact",
+      data: catalogue,
+    });
+  });
+};
+
+module.exports.get_cart = async (req, res) => {
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/cart", {
+      title: "cart",
+      data: catalogue,
+    });
   });
 };
 module.exports.get_login = (req, res) => {
-  res.render("../views/pages/guest/login", { title: "login Noorwa bookshop" });
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/login", {
+      title: "login",
+      data: catalogue,
+    });
+  });
 };
 module.exports.get_signup = (req, res) => {
-  res.render("../views/pages/guest/signup", {
-    title: "Signup Noorwa bookshop",
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/signup", {
+      title: "Signup",
+      data: catalogue,
+    });
   });
 };
 module.exports.get_pass = (req, res) => {
-  res.render("../views/pages/guest/forget-pass", {
-    title: "Forget-Passsword Noorwa bookshop",
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/forget-pass", {
+      title: "Forget-Passsword",
+      data: catalogue,
+    });
   });
 };
 module.exports.get_change = (req, res) => {
-  res.render("../views/pages/guest/change-pass", {
-    title: "Forget-Passsword Noorwa bookshop",
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/change-pass", {
+      title: "Forget-Passsword Noorwa bookshop",
+      data: catalogue,
+    });
   });
 };
 module.exports.get_dasboard = (req, res) => {
@@ -294,20 +325,17 @@ module.exports.updatePass = (req, res) => {
     });
 };
 module.exports.get_product = async (req, res) => {
-  Book.find().exec((err, books) => {
-    if (err) {
-      res.json({ message: err.message });
-    } else {
-      for (i = 0; i < books.length; i++) {
-        pic = books[i].dp;
+  Catalogue.find().then((data, err) => {
+    Book.find().exec((err, result) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        res.render("../views/pages/guest/index", {
+          title: "MH Bookshop",
+          result,
+          data,
+        });
       }
-
-      res.render("../views/pages/guest/index", {
-        title: "MH Bookshop",
-        layout: "./layouts/full-width",
-        result: books,
-        pic: pic,
-      });
-    }
+    });
   });
 };

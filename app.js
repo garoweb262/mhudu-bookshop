@@ -37,11 +37,11 @@ app.use("/js", express.static(__dirname + "assets/js"));
 app.use("/img", express.static(__dirname + "assets/img"));
 app.use("/sass", express.static(__dirname + "assets/sass"));
 app.use("/fonts", express.static(__dirname + "assets/fonts"));
-app.use("/css", express.static(__dirname + "assets/assets/css"));
-app.use("/js", express.static(__dirname + "assets/assets/js"));
-app.use("/img", express.static(__dirname + "assets/assets/img"));
-app.use("/sass", express.static(__dirname + "assets/assets/sass"));
-app.use("/fonts", express.static(__dirname + "assets/assets/fonts"));
+app.use("assets/css", express.static(__dirname + "assets/assets/css"));
+app.use("assets/js", express.static(__dirname + "assets/assets/js"));
+app.use("assets/img", express.static(__dirname + "assets/assets/img"));
+app.use("assets/sass", express.static(__dirname + "assets/assets/sass"));
+app.use("assets/fonts", express.static(__dirname + "assets/assets/fonts"));
 const APP_PORT = 8000;
 app.set("view engine", "ejs");
 const { checkUser } = require("./middlewares/verify");
@@ -50,31 +50,31 @@ const config = require("./config/database");
 
 //offline database
 
-// const connection = mongoose.connect(config.database, {
-//   useUnifiedTopology: true,
-// });
-// if (connection) {
-//   console.log("database connected offline");
-// } else {
-//   console.log("database connection error");
-// }
+const connection = mongoose.connect(config.database, {
+  useUnifiedTopology: true,
+});
+if (connection) {
+  console.log("database connected offline");
+} else {
+  console.log("database connection error");
+}
 
 //to use online database uncomment the below lines
 
-const url = config.db;
+// const url = config.db;
 
-const connectionParams = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-mongoose
-  .connect(url, connectionParams)
-  .then(() => {
-    console.log("Connected to online database ");
-  })
-  .catch((err) => {
-    console.error(`Error connecting to the database. n${err}`);
-  });
+// const connectionParams = {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// };
+// mongoose
+//   .connect(url, connectionParams)
+//   .then(() => {
+//     console.log("Connected to online database ");
+//   })
+//   .catch((err) => {
+//     console.error(`Error connecting to the database. n${err}`);
+//   });
 
 app.use(expressLayouts);
 

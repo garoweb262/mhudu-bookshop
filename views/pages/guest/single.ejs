@@ -1,0 +1,60 @@
+<div class="container mx-5">
+  <div class="row">
+    <div class="col-md-2 col-sm-12 col-12"></div>
+    <div class="col-md-8 col-sm-12 col-12">
+      <div class="card border-warning my-5">
+        <div class="card-body py-5">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="view-img">
+                <img
+                  src="/<%= result.dp %>"
+                  class="img-fluid w-90 h-100"
+                  alt="/book-img"
+                  srcset=""
+                />
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="book-details">
+                <h4 class="my-2">
+                  <span class="text-sm mx-2">Book: Title </span><%=result.title
+                  %>
+                </h4>
+                <h4 class="text-warning">
+                  <span class="mx-2">Book: Price </span><%=result.price %>
+                </h4>
+                <p class="my-2">
+                  <span class="mx-2">Book: Description </span
+                  ><%=result.description %>
+                </p>
+                <p class="my-2">
+                  <span class="mx-2">Book: Catalogue </span><%=result.catalogue
+                  %>
+                </p>
+
+                <p class="my-2">
+                  <span class="mx-2">Book: Author </span><%=result.author %>
+                </p>
+                <p class="my-2">
+                  <span class="mx-2">Book: ISBN NO </span><%=result.isbn %>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+          <div class="row">
+            <button class="btn btn-warning mx-5 my-2">Add to cart</button>
+            <button class="btn btn-outline-success mx-5 my-2">
+              Purchase Hard Copy
+            </button>
+            <button class="btn btn-outline-info mx-5 my-2">
+              Rent Soft Copy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-12 col-12"></div>
+  </div>
+</div>

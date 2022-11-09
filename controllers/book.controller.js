@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const Catalogue = require("../models/catalogue");
 const {
   currentDate,
   uploadImage,
@@ -9,16 +10,33 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports.get_all_book = (req, res) => {
-  Book.find().then(async (result, err) => {
+  Book.find().exec((err, result) => {
     if (err) {
-      console.log(err);
+      res.json({ message: err.message });
     } else {
       res.render("../views/pages/admin/all-books", {
         title: "All Books",
         layout: "./layouts/admin-dash",
-        result,
+        result: result,
       });
     }
+  });
+};
+module.exports.get_pro_book = (req, res) => {
+  Catalogue.find().exec((err, data) => {
+    let id = req.params.id;
+    Book.findById(id).exec((err, result) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        res.render("../views/pages/guest/single", {
+          title: `${result.title}`,
+          layout: "./layouts/admin",
+          result,
+          data,
+        });
+      }
+    });
   });
 };
 module.exports.get_edit_book = async (req, res) => {
@@ -37,15 +55,14 @@ module.exports.get_edit_book = async (req, res) => {
 };
 module.exports.get_view_book = async (req, res) => {
   let id = req.params.id;
-  Book.findOne({ id: id }).exec((err, book) => {
+  Book.findById(id).exec((err, result) => {
     if (err) {
       res.json({ message: err.message });
     } else {
-      console.log(book.dp);
       res.render("../views/pages/admin/view-book", {
-        title: `${book.title}`,
+        title: `${result.title}`,
         layout: "./layouts/admin-dash",
-        result: book,
+        result,
       });
     }
   });

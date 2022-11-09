@@ -9,6 +9,7 @@ const router = Router();
 
 router.post("/create", upload.single("dp"), async (req, res) => {
   let dates = currentDate();
+  let pin = randomCode();
   const { title, description, author, isbn, catalogue, price } = req.body;
 
   const book = await Book.create({
@@ -18,6 +19,7 @@ router.post("/create", upload.single("dp"), async (req, res) => {
     isbn,
     catalogue,
     dp: req.file.filename,
+    pdf: pin,
     price,
     date: dates,
   });
@@ -39,7 +41,7 @@ router.get("/all-books", bookController.get_all_book);
 // router.get("/all-books", bookController.get_product);
 router.get("/edit/:id", bookController.get_edit_book);
 router.get("/view/:id", bookController.get_view_book);
-// router.get("/open-pdf", );
+router.get("/single/:id", bookController.get_pro_book);
 router.post("/update/:id", upload.single("dp"), bookController.updatebook);
 router.get("/delete/:id", bookController.deletebook);
 

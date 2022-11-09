@@ -2,9 +2,12 @@ const Router = require("express");
 const userController = require("../controllers/user.controller");
 const { requireAuth, checkUser } = require("../middlewares/verify");
 const router = Router();
+
 router.get("*", checkUser);
 router.get("/", userController.get_product);
 router.get("/about", userController.get_about);
+
+router.get("/cart", userController.get_cart);
 router.get("/contact", userController.get_contact);
 router.get("/login", userController.get_login);
 router.get("/register", userController.get_signup);

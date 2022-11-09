@@ -7,11 +7,9 @@
           <span>All Catalogues</span>
         </div>
         <ul>
-          <li><a href="#">Sciences</a></li>
-          <li><a href="#">Politics</a></li>
-          <li><a href="#">History</a></li>
-          <li><a href="#">English</a></li>
-          <li><a href="#">Medicine</a></li>
+          <% data.forEach((cata, index) => {%>
+          <li><a href="#"><%= cata.name %></a></li>
+          <%})%>
         </ul>
       </div>
     </div>
@@ -46,3 +44,11 @@
     </div>
   </div>
 </div>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
