@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../../views/partials/head'); %>
+  </head>
+  <body class="">
+    <!-- <img src="../../views/partials/head" alt=""> -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+      <div class="humberger__menu__logo">
+        <h4><a class="tom" href="/">MH Bookshop</a></h4>
+      </div>
+      <div class="humberger__menu__cart"></div>
+      <div class="humberger__menu__widget">
+        <div class="header__top__right__language">
+          <a class="text-dark" href="#"><i class=""></i>Create Account</a>
+        </div>
+        <div class="header__top__right__auth">
+          <a href="#"><i class="fa fa-user"></i> Login</a>
+        </div>
+      </div>
+      <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li>
+            <a href="#">Books</a>
+            <ul class="header__menu__dropdown">
+              <% data.forEach((cata, index) => {%>
+              <li><a href="/cart"><%= cata.name %></a></li>
+              <%})%>
+            </ul>
+          </li>
+
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/admin">Admin</a></li>
+        </ul>
+      </nav>
+      <div id="mobile-menu-wrap"></div>
+      <div class="header__top__right__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+      </div>
+      <div class="humberger__menu__contact">
+        <ul></ul>
+      </div>
+    </div>
+    <header><%- include('../../views/partials/header'); %></header>
+    <%- body %>
+    <footer class="footer spad">
+      <%- include('../../views/partials/footer'); %>
+    </footer>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

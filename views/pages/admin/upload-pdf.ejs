@@ -1,0 +1,42 @@
+
+  <div class="confirm error text-danger text-center text-xl>
+    </div>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-4 col-md-12"></div>
+      <div class="col-lg-4 col-md-12">
+        <div class="card my-5">
+          <div class="card-header bg-warning">
+            <h3 class="text-light text-center">Upload Pdf</h3>
+          </div>
+          <div class="card-body py-5 px-3">
+            <form action="book/pdf/upload-pdf/<%= result._id %>" method="post" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-12 my-2">
+                  <div class="form-group">
+                    <input
+                      type="file"
+                      name="pdf"
+                      class="form-control"
+                    />
+                    <div class="name error"></div>
+                  </div>
+                <div class="col-12 my-2">
+                  
+                    <input
+                      type="submit"
+                      value="Update Book"
+                      class="btn btn-warning text-light w-100"
+                    />
+                
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12"></div>
+    </div>
+  </div>
+

@@ -8,6 +8,7 @@ router.get("/", userController.get_product);
 router.get("/about", userController.get_about);
 
 router.get("/cart", userController.get_cart);
+
 router.get("/contact", userController.get_contact);
 router.get("/login", userController.get_login);
 router.get("/register", userController.get_signup);
@@ -23,5 +24,7 @@ router.get("/add-book", userController.get_catalogue_form);
 router.get("/all-purchase", userController.get_allPurchase);
 router.get("/all-rents", userController.get_allRental);
 router.get("/all-users", userController.get_allUsers);
+router.get("/title/:id", userController.get_product_cat);
 router.get("/delete/:id", userController.delete_user);
+
 module.exports = router;

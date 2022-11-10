@@ -1,4 +1,5 @@
 const Catalogue = require("../models/catalogue");
+const Book = require("../models/book");
 const { currentDate } = require("../config/constants");
 
 module.exports.create_catalogue = async (req, res) => {

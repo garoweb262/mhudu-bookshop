@@ -47,9 +47,48 @@ const createToken = (id) => {
   });
 };
 
-// module.exports.get_home = (req, res) => {
-//   res.render("../views/pages/guest/index", { title: "Home Noorwa bookshop" });
-// };
+module.exports.get_product = async (req, res) => {
+  Catalogue.find().then((data, err) => {
+    Book.find().exec((err, bookResult) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        let id = req.params.id;
+        Book.findOne({ bookResult }).exec((err, result) => {
+          if (err) {
+            res.json({ message: err.message });
+          } else {
+            res.render("../views/pages/guest/index", {
+              title: "MH Bookshop",
+              result: bookResult,
+              data,
+            });
+          }
+        });
+      }
+    });
+  });
+};
+module.exports.get_product_cat = (req, res) => {
+  Catalogue.find().then((data, err) => {
+    const id = req.params.id;
+    Catalogue.findById(id).then((result) => {
+      Book.find({ catalogue: result.name }).exec((err, bookResult) => {
+        if (err) {
+          res.json({ message: err.message });
+        } else {
+          res.render("../views/pages/guest/cat-product", {
+            title: `${result.name}`,
+            layout: "./layouts/admin",
+            data,
+            result,
+            book: bookResult,
+          });
+        }
+      });
+    });
+  });
+};
 module.exports.get_about = (req, res) => {
   Catalogue.find().exec((err, catalogue) => {
     res.render("../views/pages/guest/about", {
@@ -75,6 +114,7 @@ module.exports.get_cart = async (req, res) => {
     });
   });
 };
+
 module.exports.get_login = (req, res) => {
   Catalogue.find().exec((err, catalogue) => {
     res.render("../views/pages/guest/login", {
@@ -323,19 +363,4 @@ module.exports.updatePass = (req, res) => {
         error: error,
       });
     });
-};
-module.exports.get_product = async (req, res) => {
-  Catalogue.find().then((data, err) => {
-    Book.find().exec((err, result) => {
-      if (err) {
-        res.json({ message: err.message });
-      } else {
-        res.render("../views/pages/guest/index", {
-          title: "MH Bookshop",
-          result,
-          data,
-        });
-      }
-    });
-  });
 };

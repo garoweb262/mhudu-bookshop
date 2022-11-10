@@ -207,7 +207,17 @@ strong,
   text-transform: uppercase;
   color: #95aac9;
 }
-
+.hoverm {
+  color: #ffad46;
+}
+.tom:hover,
+.tom:focus {
+  color: #ffad46;
+}
+.hoverm:hover,
+.hoverm:focus {
+  color: #ffad46;
+}
 .page-title {
   font-size: 23px;
   font-weight: 600;

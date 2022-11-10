@@ -34,7 +34,9 @@
               <a href="#">Books</a>
               <ul class="header__menu__dropdown">
                 <% data.forEach((cata, index) => {%>
-                <li><a href="/cart"><%= cata.name %></a></li>
+                <li>
+                  <a href="/title/<%= cata._id%>"><%= cata.name %></a>
+                </li>
                 <%})%>
               </ul>
             </li>

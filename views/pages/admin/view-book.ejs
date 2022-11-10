@@ -48,24 +48,81 @@
                   <span class="bold-text text-dark">ISBN NO:</span><%=
                   result.isbn %>
                 </p>
-                <a class="mx-3" href="#"
-                  ><button class="btn btn-success w-50 mx-5">
-                    <%= result.title %>
-                  </button></a
-                >
+                <a class="mx-3" href="/book/upload-pdf/<%= result._id %>">
+                  <button class="btn btn-primary w-50 mx-1">Upload Pdf</button>
+                </a>
               </div>
               <div class="row my-3">
-                <a class="mx-3" href="/book/upload-pdf/<%= result._id %>"
-                  ><button class="btn btn-primary w-100 mx-1">
-                    Upload Pdf
+                <a class="mx-3" href="/book/upload-pdf/<%= result._id %>">
+                  <button class="btn btn-outline-primary w-100 mx-1">
+                    view Pdf
+                  </button>
+                </a>
+
+                <a class="mx-3" href="/book/edit/<%= result._id %>"
+                  ><button class="btn btn-outline-success w-100 mx-1">
+                    Edit
                   </button></a
                 >
-                <a class="mx-3" href="/book/edit/<%= result._id %>"
-                  ><button class="btn btn-success w-100 mx-1">Edit</button></a
-                >
                 <a href="/book/delete/<%= result._id %>"
-                  ><button class="btn btn-danger w-100 mx-1">Delete</button></a
+                  ><button class="btn btn-outline-danger w-100 mx-1">
+                    Delete
+                  </button></a
                 >
+                <div
+                  class="modal fade"
+                  id="addRowModal"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header no-bd">
+                        <h5 class="modal-title">
+                          <span class="fw-mediumbold"> Upload Pdf</span>
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form
+                          action="book/pdf/upload-pdf/<%= result._id %>"
+                          method="post"
+                          enctype="multipart/form-data"
+                        >
+                          <div class="row">
+                            <div class="col-md-6 pr-0">
+                              <div class="form-group form-group-default">
+                                <label>Pdf</label>
+                                <input
+                                  id="addPosition"
+                                  type="file"
+                                  class="form-control"
+                                  name="pdf"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <input
+                                type="submit"
+                                value="Upload"
+                                name="submit"
+                                class="btn btn-warning text-light w-100"
+                              />
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
