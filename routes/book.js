@@ -38,14 +38,14 @@ router.post("/create", upload.single("dp"), async (req, res) => {
   });
 });
 router.post(
-  "/pdf/upload-pdf/:id",
+  "/upload/:id",
   uploadProfile.single("pdf"),
   bookController.upload_pdf
 );
 router.get("/all-books", bookController.get_all_book);
 router.get("/single/:id", bookController.get_pro_book);
 router.get("/edit/:id", bookController.get_edit_book);
-router.get("/upload-pdf/:id", bookController.get_upload_pdf);
+
 router.get("/view/:id", bookController.get_view_book);
 
 router.post("/update/:id", upload.single("dp"), bookController.updatebook);

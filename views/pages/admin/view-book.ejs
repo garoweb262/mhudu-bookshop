@@ -2,6 +2,20 @@
   <div class="page-header">
     <h4 class="page-title"><%= result.title %></h4>
   </div>
+  <% if (message) { %>
+  <div class="alert alert-dismissible fade show" alert-<%="message.type" %>
+    role="alert">
+    <button
+      type="button"
+      class="btn-close"
+      data-dismiss="alert"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong><%= message.message %> </strong>
+  </div>
+  <% } %>
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -48,7 +62,7 @@
                   <span class="bold-text text-dark">ISBN NO:</span><%=
                   result.isbn %>
                 </p>
-                <a class="mx-3" href="/book/upload-pdf/<%= result._id %>">
+                <a class="mx-3" href="/upload/<%= result._id %>">
                   <button class="btn btn-primary w-50 mx-1">Upload Pdf</button>
                 </a>
               </div>
@@ -69,60 +83,6 @@
                     Delete
                   </button></a
                 >
-                <div
-                  class="modal fade"
-                  id="addRowModal"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header no-bd">
-                        <h5 class="modal-title">
-                          <span class="fw-mediumbold"> Upload Pdf</span>
-                        </h5>
-                        <button
-                          type="button"
-                          class="close"
-                          data-dismiss="modal"
-                          aria-label="Close"
-                        >
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <form
-                          action="book/pdf/upload-pdf/<%= result._id %>"
-                          method="post"
-                          enctype="multipart/form-data"
-                        >
-                          <div class="row">
-                            <div class="col-md-6 pr-0">
-                              <div class="form-group form-group-default">
-                                <label>Pdf</label>
-                                <input
-                                  id="addPosition"
-                                  type="file"
-                                  class="form-control"
-                                  name="pdf"
-                                />
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <input
-                                type="submit"
-                                value="Upload"
-                                name="submit"
-                                class="btn btn-warning text-light w-100"
-                              />
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

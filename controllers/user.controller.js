@@ -110,6 +110,25 @@ module.exports.get_cart = async (req, res) => {
   Catalogue.find().exec((err, catalogue) => {
     res.render("../views/pages/guest/cart", {
       title: "cart",
+      layout: "./layouts/admin",
+      data: catalogue,
+    });
+  });
+};
+module.exports.get_rental = async (req, res) => {
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/rental", {
+      title: "Rent  book",
+      layout: "./layouts/admin",
+      data: catalogue,
+    });
+  });
+};
+module.exports.get_purchase = async (req, res) => {
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/purchase", {
+      title: "purchase book",
+      layout: "./layouts/admin",
       data: catalogue,
     });
   });
@@ -185,6 +204,20 @@ module.exports.get_catalogue_form = (req, res) => {
       res.render("../views/pages/admin/add-book", {
         title: "Upload Books",
         layout: "./layouts/admin",
+        result,
+      });
+    }
+  });
+};
+module.exports.get_upload_pdf = async (req, res) => {
+  let id = req.params.id;
+  Book.findById(id).then((result, err) => {
+    if (err) {
+      res.redirect("/book/all-book");
+    } else {
+      res.render("../views/pages/admin/upload-pdf", {
+        title: "Upload Pdf",
+        layout: "./layouts/admin-dash",
         result,
       });
     }

@@ -38,7 +38,11 @@
           <span>Books of Life</span>
           <h2>MH <br />Bookshop</h2>
           <p>Rent and read Online or Buy hard copy</p>
-          <a href="#" class="primary-btn">SHOP NOW</a>
+          <% if (user) { %>
+          <a href="/dashboard" class="primary-btn">SHOP NOW</a>
+          <%} else {%>
+          <a href="/login" class="primary-btn">SHOP NOW</a>
+          <%}%>
         </div>
       </div>
     </div>

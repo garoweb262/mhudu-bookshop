@@ -8,6 +8,8 @@ router.get("/", userController.get_product);
 router.get("/about", userController.get_about);
 
 router.get("/cart", userController.get_cart);
+router.get("/purchase", userController.get_purchase);
+router.get("/rental", userController.get_rental);
 
 router.get("/contact", userController.get_contact);
 router.get("/login", userController.get_login);
@@ -21,6 +23,7 @@ router.get("/my-books", requireAuth, userController.get_my_books);
 router.get("/logout", userController.get_logout);
 router.get("/add-catalogue", userController.get_catalogue_add);
 router.get("/add-book", userController.get_catalogue_form);
+router.get("/upload/:id", userController.get_upload_pdf);
 router.get("/all-purchase", userController.get_allPurchase);
 router.get("/all-rents", userController.get_allRental);
 router.get("/all-users", userController.get_allUsers);

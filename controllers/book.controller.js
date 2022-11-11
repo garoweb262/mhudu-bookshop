@@ -54,20 +54,7 @@ module.exports.get_edit_book = async (req, res) => {
     }
   });
 };
-module.exports.get_upload_pdf = async (req, res) => {
-  let id = req.params.id;
-  Book.findById(id).then((result, err) => {
-    if (err) {
-      res.redirect("/book/all-book");
-    } else {
-      res.render("../views/pages/admin/upload-pdf", {
-        title: "Upload Pdf",
-        layout: "./layouts/admin-dash",
-        result,
-      });
-    }
-  });
-};
+
 module.exports.get_view_book = async (req, res) => {
   let id = req.params.id;
   Book.findById(id).exec((err, result) => {
@@ -95,12 +82,11 @@ module.exports.upload_pdf = async (req, res) => {
       if (err) {
         res.json({ message: err.message, type: "danger" });
       } else {
-        res.json("pdf successfully");
         req.session.message = {
           type: "success",
           message: "PDF Uploaded successfully!",
         };
-        res.redirect("/book/all-books");
+        res.redirect(`/book/view/${result._id}`);
       }
     }
   );
