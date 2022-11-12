@@ -69,6 +69,7 @@ module.exports.get_view_book = async (req, res) => {
     }
   });
 };
+
 module.exports.upload_pdf = async (req, res) => {
   let dates = currentDate();
   const id = req.params.id;
@@ -132,27 +133,7 @@ module.exports.updatebook = async (req, res) => {
     }
   );
 };
-module.exports.openPdf = async (req, res) => {
-  let id = req.params.id;
-  let data = await Book.findOne({ id: id });
-  if (data) {
-    data.dp = data.dp.split(" ");
-    pdf = data.dp.split(" ")[1];
-    var file = fs.createReadStream(`./uploads/${pdf}`);
-    var stat = fs.statSync(`./uploads/${pdf}`);
-    res.setHeader("Content-Length", stat.size);
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader(`Content-Disposition", "attachment; filename=${data.title}`);
-    file.pipe(res);
-    var datas = fs.readFileSync(`/${pdf}`);
-    res.contentType("application/pdf");
-    res.send(datas);
-  } else {
-    res.status(404).json({
-      message: "book not found",
-    });
-  }
-};
+
 module.exports.deletebook = async (req, res) => {
   const id = req.params.id;
   Book.findByIdAndRemove(id, (err, result) => {

@@ -10,7 +10,7 @@ router.get("/about", userController.get_about);
 router.get("/cart", userController.get_cart);
 router.get("/purchase", userController.get_purchase);
 router.get("/rental", userController.get_rental);
-
+router.get("/open-pdf/:id", userController.openPdf);
 router.get("/contact", userController.get_contact);
 router.get("/login", userController.get_login);
 router.get("/register", userController.get_signup);

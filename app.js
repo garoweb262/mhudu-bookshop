@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("assets"));
 app.use(express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 app.use("/css", express.static(__dirname + "assets/css"));
 app.use("/js", express.static(__dirname + "assets/js"));
 app.use("/img", express.static(__dirname + "assets/img"));

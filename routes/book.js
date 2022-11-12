@@ -43,6 +43,7 @@ router.post(
   bookController.upload_pdf
 );
 router.get("/all-books", bookController.get_all_book);
+
 router.get("/single/:id", bookController.get_pro_book);
 router.get("/edit/:id", bookController.get_edit_book);
 

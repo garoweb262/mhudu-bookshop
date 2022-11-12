@@ -133,7 +133,21 @@ module.exports.get_purchase = async (req, res) => {
     });
   });
 };
-
+module.exports.openPdf = async (req, res) => {
+  let id = req.params.id;
+  Book.findById(id).exec((err, result) => {
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      res.render("../views/pages/admin/open-pdf", {
+        title: `${result.title}`,
+        pdf: `${process.env.DOMAIN_NAME}/uploads/${result.pdf}`,
+        layout: "./layouts/pdf",
+        result,
+      });
+    }
+  });
+};
 module.exports.get_login = (req, res) => {
   Catalogue.find().exec((err, catalogue) => {
     res.render("../views/pages/guest/login", {
