@@ -46,26 +46,40 @@ module.exports.create_purchase = async (req, res) => {
       res.redirect(`${payment.data.data.link}`);
     }
   });
-  // const purchasedBook = await purchase.save();
-  // res.status(201).json({
-  //   success: true,
-  //   data: purchasedBook,
-  //   paymentUrl: payment.data.data.link,
-  // });
 };
-module.exports.verifyPayment = async (req, res) => {
-  const id = req.params.id;
-  Purchase.findByIdAndUpdate(id, {
-    useFindAndModify: false,
-    reference: reference,
-    status: "Success",
-  })
-    .then((result) => {
-      res.status(200).json({ success: true, message: "payment verified" });
-    })
-    .catch((error) => {
-      res
-        .status(500)
-        .json({ success: false, message: "error verifying payment" });
-    });
-};
+// module.exports.get_allPayments = (req, res) => {
+//   Purchase.find().then((data, err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+
+//       res.render("../views/pages/admin/verify", {
+
+//         data,
+//       });
+//     }
+//   });
+// };
+// module.exports.verifyPayment = async (req, res) => {
+//   const reference = req.params.reference;
+//   Purchase.updateOne(
+//     {
+//       reference: reference,
+//     },
+//     { $set: { status: "Success" } }
+//   )
+//     .then((result) => {
+//       res
+//         .status(200)
+//         .json({
+//           success: true,
+//           message: "payment verified",
+//           status: result.status,
+//         });
+//     })
+//     .catch((error) => {
+//       res
+//         .status(500)
+//         .json({ success: false, message: "error verifying payment" });
+//     });
+// };

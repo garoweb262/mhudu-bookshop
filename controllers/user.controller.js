@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Catalogue = require("../models/catalogue");
 const Book = require("../models/book");
+const Purchase = require("../models/purchase");
 const jwt = require("jsonwebtoken");
 const {
   appUrl,
@@ -146,6 +147,19 @@ module.exports.get_purchase = async (req, res) => {
         });
       }
     });
+  });
+};
+module.exports.get_verify = async (req, res) => {
+  Purchase.find().then((data, err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("../views/pages/guest/verify", {
+        title: "Verify Payment",
+        layout: "./layouts/admin",
+        data,
+      });
+    }
   });
 };
 module.exports.openPdf = async (req, res) => {
