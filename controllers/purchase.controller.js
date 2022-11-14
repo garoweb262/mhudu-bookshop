@@ -60,26 +60,3 @@ module.exports.create_purchase = async (req, res) => {
 //     }
 //   });
 // };
-// module.exports.verifyPayment = async (req, res) => {
-//   const reference = req.params.reference;
-//   Purchase.updateOne(
-//     {
-//       reference: reference,
-//     },
-//     { $set: { status: "Success" } }
-//   )
-//     .then((result) => {
-//       res
-//         .status(200)
-//         .json({
-//           success: true,
-//           message: "payment verified",
-//           status: result.status,
-//         });
-//     })
-//     .catch((error) => {
-//       res
-//         .status(500)
-//         .json({ success: false, message: "error verifying payment" });
-//     });
-// };
