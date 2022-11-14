@@ -172,4 +172,17 @@ module.exports = constant = {
     // console.log(resp);
     return resp;
   },
+  verifyPayment: async (data) => {
+    const resp = await axios.get(
+      `https://api.flutterwave.com/v3/transactions/${trxRef}/verify`,
+      {
+        headers: {
+          authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(resp);
+    return resp;
+  },
 };

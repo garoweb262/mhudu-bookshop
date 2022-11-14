@@ -6,7 +6,55 @@
           <h4>Book details</h4>
         </div>
         <div class="card-body">
-          <p></p>
+          <form
+            action="/purchase/purchase-book/<%= result._id %>"
+            method="post"
+          >
+            <div class="row">
+              <div class="col-md-6">
+                <div class="view-img">
+                  <img
+                    src="/<%= result.dp %>"
+                    class="img-fluid w-90 h-100"
+                    alt="/book-img"
+                    srcset=""
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="book-details">
+                  <h4 class="my-2">
+                    <span class="text-sm mx-2">Book: Title </span
+                    ><%=result.title %>
+                  </h4>
+                  <h4 class="text-warning">
+                    <span class="mx-2">Book: Price </span><%=result.price %>
+                  </h4>
+                  <p class="my-2">
+                    <span class="mx-2">Book: Description </span
+                    ><%=result.description %>
+                  </p>
+                  <p class="my-2">
+                    <span class="mx-2">Book: Catalogue </span
+                    ><%=result.catalogue %>
+                  </p>
+
+                  <p class="my-2">
+                    <span class="mx-2">Book: Author </span><%=result.author %>
+                  </p>
+                  <p class="my-2">
+                    <span class="mx-2">Book: ISBN NO </span><%=result.isbn %>
+                  </p>
+                </div>
+              </div>
+              <input
+                type="submit"
+                value="Proceed to payment"
+                name="submit"
+                class="btn btn-warning text-light offset-md-4 my-3"
+              />
+            </div>
+          </form>
         </div>
       </div>
     </div>

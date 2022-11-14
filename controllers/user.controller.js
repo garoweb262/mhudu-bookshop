@@ -142,6 +142,7 @@ module.exports.get_purchase = async (req, res) => {
           title: "purchase book",
           layout: "./layouts/admin",
           data: catalogue,
+          result: result,
         });
       }
     });
