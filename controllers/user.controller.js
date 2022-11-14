@@ -117,19 +117,33 @@ module.exports.get_cart = async (req, res) => {
 };
 module.exports.get_rental = async (req, res) => {
   Catalogue.find().exec((err, catalogue) => {
-    res.render("../views/pages/guest/rental", {
-      title: "Rent  book",
-      layout: "./layouts/admin",
-      data: catalogue,
+    let id = req.params.id;
+    Book.findById(id).exec((err, result) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        res.render("../views/pages/guest/rental", {
+          title: "Rent  book",
+          layout: "./layouts/admin",
+          data: catalogue,
+        });
+      }
     });
   });
 };
 module.exports.get_purchase = async (req, res) => {
   Catalogue.find().exec((err, catalogue) => {
-    res.render("../views/pages/guest/purchase", {
-      title: "purchase book",
-      layout: "./layouts/admin",
-      data: catalogue,
+    let id = req.params.id;
+    Book.findById(id).exec((err, result) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        res.render("../views/pages/guest/purchase", {
+          title: "purchase book",
+          layout: "./layouts/admin",
+          data: catalogue,
+        });
+      }
     });
   });
 };

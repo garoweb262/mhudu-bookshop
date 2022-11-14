@@ -6,6 +6,7 @@ const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
 const catalogueRoutes = require("./routes/catalogue");
 const bookRoutes = require("./routes/book");
+const purchaseRoutes = require("./routes/purchase");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -85,6 +86,7 @@ app.use(userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/user", authRoutes);
 app.use("/book", bookRoutes);
+app.use("/purchase", purchaseRoutes);
 app.use("/catalogue", catalogueRoutes);
 
 app.get("*", checkUser);

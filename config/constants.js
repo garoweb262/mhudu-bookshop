@@ -1,6 +1,7 @@
 const axios = require("axios");
 const { path } = require("express/lib/application");
 var fs = require("fs");
+require("dotenv").config();
 var nodemailer = require("nodemailer");
 module.exports = constant = {
   appName: "NoorwaBookshop",
@@ -73,45 +74,7 @@ module.exports = constant = {
     var dateTime = month;
     return dateTime;
   },
-  generatePayment: async (email = "no-reply@mail.com", amount) => {
-    let result = await axios.post(
-      "https://api.paystack.co/transaction/initialize",
-      {
-        email: `${email}`,
-        amount: `${amount}00`,
-      },
-      {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
-        },
-      }
-    );
-    console.log(result.data);
-    return result.data;
-  },
 
-  verifyPayment: async (ref) => {
-    let result = {};
-    await axios
-      .get("https://api.paystack.co/transaction/verify/" + ref, {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
-        },
-      })
-      .then((response) => {
-        // console.log(response.data);
-        result = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-        // return "Error ";
-        result = error;
-      });
-    // console.log(result);
-    return result;
-  },
   // Date in range
   dateInRange: (start, end, currentDate = new Date()) => {
     // var currentDate = new Date();
@@ -175,5 +138,38 @@ module.exports = constant = {
 
     console.log(message);
     return true;
+  },
+  generatePayment: async (data) => {
+    const resp = await axios.post(
+      "https://api.flutterwave.com/v3/payments",
+      {
+        tx_ref: data.tx_ref,
+        amount: data.amount,
+        currency: "NGN",
+        redirect_url: `${process.env.FLUTTERWAVE_REDIRECT}`, //"https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",
+        // meta: {
+        //   consumer_id: 23,
+        //   consumer_mac: "92a3-912ba-1192a",
+        // },
+        customer: {
+          email: data.email,
+          phonenumber: data.phonenumber,
+          name: data.name,
+        },
+        customizations: {
+          title: constant.appName,
+          // logo: Config.appLogo,
+        },
+      },
+      {
+        headers: {
+          authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
+          //   "Content-Type": "application/json",
+        },
+      }
+    );
+
+    // console.log(resp);
+    return resp;
   },
 };
