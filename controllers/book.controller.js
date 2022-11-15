@@ -1,10 +1,11 @@
 const Book = require("../models/book");
-const Catalogue = require("../models/catalogue");
+const Purchase = require("../models/purchase");
+const Rental = require("../models/rental");
 const {
   currentDate,
-  uploadImage,
   randomPin,
-  getBase64,
+  randomCode,
+  generatePayment,
 } = require("../config/constants");
 const fs = require("fs");
 const path = require("path");
@@ -153,5 +154,43 @@ module.exports.deletebook = async (req, res) => {
       };
       res.redirect("/book/all-books");
     }
+  });
+};
+module.exports.rent_a_book = async (req, res) => {
+  const reference = randomCode();
+  const id = req.params.id;
+  const result = await Book.findById(id).exec();
+  if (!result)
+    return res
+      .status(400)
+      .json({ success: false, message: "couldn't find book" });
+
+  const payment = await generatePayment({
+    tx_ref: reference,
+    amount: result.price,
+    email: req.userData.email,
+    phonenumber: req.userData.phone,
+    name: req.userData.name,
+  });
+  if (!payment.data || payment.data.status != "success")
+    return res
+      .status(400)
+      .json({ success: false, message: "failed to generate payment" });
+  console.log(payment.data);
+  const { startDate, endDate } = req.body;
+  const rental = await Rental.create({
+    bookId: result._id,
+    price: result.price,
+    userId: req.userData._id,
+    status: "pending",
+    startDate,
+    endDate,
+    reference: reference,
+  });
+  const savedRent = await rental.save();
+  res.status(201).json({
+    success: true,
+    data: savedRent,
+    link: payment.data.data.link,
   });
 };

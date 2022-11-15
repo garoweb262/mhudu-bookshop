@@ -3,12 +3,13 @@ const bookController = require("../controllers/book.controller");
 const upload = require("../middlewares/uploadMiddleware");
 const uploadProfile = require("../middlewares/picMiddleware");
 const { currentDate, appUrl, randomCode } = require("../config/constants");
+const { checkAuth } = require("../middlewares/check-user");
 const { requireAuth, checkUser } = require("../middlewares/verify");
 const Book = require("../models/book");
 const path = require("path");
 const fs = require("fs");
 const router = Router();
-
+router.get("*", checkUser);
 router.post("/create", upload.single("dp"), async (req, res) => {
   let dates = currentDate();
   let pin = randomCode();
@@ -42,6 +43,12 @@ router.post(
   "/upload/:id",
   uploadProfile.single("pdf"),
   bookController.upload_pdf
+);
+router.post(
+  "/rent-book/:id",
+  checkAuth,
+  requireAuth,
+  bookController.rent_a_book
 );
 router.get("/all-books", bookController.get_all_book);
 

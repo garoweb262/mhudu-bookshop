@@ -3,13 +3,10 @@
     <div class="col-md-6 offset-md-3">
       <div class="card">
         <div class="card-header">
-          <h4>Book details for</h4>
+          <h4>Book details</h4>
         </div>
         <div class="card-body">
-          <form
-            action="/purchase/purchase-book/<%= result._id %>"
-            method="post"
-          >
+          <form>
             <div class="row">
               <div class="col-md-6">
                 <div class="view-img">
@@ -47,6 +44,32 @@
                   </p>
                 </div>
               </div>
+                   <div class="row">
+                <div class="col-6 my-2">
+                  <div class="form-group">
+                     <label class="text-dark" for="comment">Start Date</label>
+                    <input
+                      type="date"
+                      name="startDate"
+                      class="form-control"
+                    />
+                    <div class="email error"></div>
+                  </div>
+                </div>
+                <div class="col-6 my-2">
+                  <div class="form-group">
+                     <label class="text-dark" for="comment">End Date</label>
+                    <input
+                      type="date"
+                      name="endDate"
+                      class="form-control"
+                    />
+                    <div class="password error"></div>
+                  </div>
+                </div>
+              
+                </div>
+              </div>
               <input
                 type="submit"
                 value="Proceed to payment"
@@ -60,3 +83,30 @@
     </div>
   </div>
 </div>
+
+<script>
+  const token = localStorage.getItem("userToken");
+  // alert(token);
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const startDate = form.startDate.value;
+    const endDate = form.endDate.value;
+    try {
+      const res = await fetch("/book/rent-book/<%= result._id %>", {
+        method: "POST",
+        body: JSON.stringify({
+          startDate: startDate,
+          endDate: endDate,
+        }),
+        headers: { Authorization: token, "Content-type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data) location.assign(data.link);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>

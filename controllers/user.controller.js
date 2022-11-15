@@ -128,6 +128,7 @@ module.exports.get_rental = async (req, res) => {
           title: "Rent  book",
           layout: "./layouts/admin",
           data: catalogue,
+          result: result,
         });
       }
     });

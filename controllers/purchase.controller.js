@@ -1,6 +1,6 @@
 const Purchase = require("../models/purchase");
 const Book = require("../models/book");
-var localStorage = require("localStorage");
+
 const {
   currentDate,
   randomCode,

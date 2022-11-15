@@ -11,7 +11,7 @@ router.get("/about", userController.get_about);
 router.get("/cart", requireAuth, userController.get_cart);
 router.get("/purchase/:id", requireAuth, userController.get_purchase);
 router.get("/verify", requireAuth, userController.get_verify);
-router.get("/rental", requireAuth, userController.get_rental);
+router.get("/rental/:id", requireAuth, userController.get_rental);
 router.get("/open-pdf/:id", userController.openPdf);
 router.get("/contact", userController.get_contact);
 router.get("/login", userController.get_login);
