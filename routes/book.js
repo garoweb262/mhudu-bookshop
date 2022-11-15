@@ -50,6 +50,12 @@ router.post(
   requireAuth,
   bookController.rent_a_book
 );
+router.post(
+  "/purchase-book/:id",
+  checkAuth,
+  requireAuth,
+  bookController.purchase_book
+);
 router.get("/all-books", bookController.get_all_book);
 
 router.get("/single/:id", requireAuth, bookController.get_pro_book);

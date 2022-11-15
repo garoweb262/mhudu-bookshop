@@ -67,7 +67,7 @@
     e.preventDefault();
 
     try {
-      const res = await fetch("/purchase/purchase-book/<%= result._id %>", {
+      const res = await fetch("/book/purchase-book/<%= result._id %>", {
         method: "POST",
         headers: { Authorization: token, "Content-type": "application/json" },
       });
