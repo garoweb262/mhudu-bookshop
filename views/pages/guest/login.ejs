@@ -92,6 +92,8 @@
         passwordError.textContent = data.errors.password;
       }
       if (data.user) {
+        window.localStorage.setItem("user", JSON.stringify(data.user));
+        window.localStorage.setItem("userToken", data.token);
         location.assign("/");
       }
     } catch (err) {

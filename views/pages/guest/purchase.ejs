@@ -6,10 +6,7 @@
           <h4>Book details</h4>
         </div>
         <div class="card-body">
-          <form
-            action="/purchase/purchase-book/<%= result._id %>"
-            method="post"
-          >
+          <form>
             <div class="row">
               <div class="col-md-6">
                 <div class="view-img">
@@ -58,13 +55,27 @@
         </div>
       </div>
     </div>
-    <!-- <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h4></h4>
-        </div>
-        <div class="card-body"></div>
-      </div>
-    </div> -->
   </div>
 </div>
+
+<script>
+  const token = localStorage.getItem("userToken");
+  // alert(token);
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("/purchase/purchase-book/<%= result._id %>", {
+        method: "POST",
+        headers: { Authorization: token, "Content-type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data) location.assign(data.link);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>

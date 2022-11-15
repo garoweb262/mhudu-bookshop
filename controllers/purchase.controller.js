@@ -1,6 +1,6 @@
 const Purchase = require("../models/purchase");
 const Book = require("../models/book");
-const User = require("../models/user");
+var localStorage = require("localStorage");
 const {
   currentDate,
   randomCode,
@@ -19,9 +19,9 @@ module.exports.create_purchase = async (req, res) => {
   const payment = await generatePayment({
     tx_ref: reference,
     amount: result.price,
-    email: "muhdgazzali01@gmail.com",
-    phonenumber: "07066492821",
-    name: "garzali ahmad",
+    email: req.userData.email,
+    phonenumber: req.userData.phone,
+    name: req.userData.name,
   });
   if (!payment.data || payment.data.status != "success")
     return res
@@ -31,21 +31,28 @@ module.exports.create_purchase = async (req, res) => {
   const purchase = await Purchase.create({
     bookId: result._id,
     price: result.price,
-    userId: "6788ihkjd345",
+    userId: req.userData._id,
     status: "pending",
     reference: reference,
   });
-  purchase.save((err) => {
-    if (err) {
-      res.json({ message: err.message, type: "danger" });
-    } else {
-      // req.session.message = {
-      //   type: "success",
-      //   message: "image uploaded successfully!",
-      // };
-      res.redirect(`${payment.data.data.link}`);
-    }
+  const savedCatalogue = await purchase.save();
+  res.status(201).json({
+    success: true,
+    data: savedCatalogue,
+    link: payment.data.data.link,
   });
+  // res.redirect(`${payment.data.data.link}`);
+  // purchase.save((err) => {
+  //   if (err) {
+  //     res.json({ message: err.message, type: "danger" });
+  //   } else {
+  //     const token = localStorage.getItem("userToken");
+  //     // console.log(localStorage.getItem("userToken"));
+
+  //     res.headers("Authorization", token);
+  //     res.redirect(`${payment.data.data.link}`);
+  //   }
+  // });
 };
 // module.exports.get_allPayments = (req, res) => {
 //   Purchase.find().then((data, err) => {

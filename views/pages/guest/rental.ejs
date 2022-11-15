@@ -1,54 +1,58 @@
 <div class="container my-5">
   <div class="row py-5">
-    <div class="col-md-6">
+    <div class="col-md-6 offset-md-3">
       <div class="card">
         <div class="card-header">
-          <h4>Book details</h4>
-        </div>
-        <div class="card-body"></div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h4></h4>
+          <h4>Book details for</h4>
         </div>
         <div class="card-body">
-          <form action="">
+          <form
+            action="/purchase/purchase-book/<%= result._id %>"
+            method="post"
+          >
             <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Title" />
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Price" />
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Buyer Name"
+              <div class="col-md-6">
+                <div class="view-img">
+                  <img
+                    src="/<%= result.dp %>"
+                    class="img-fluid w-90 h-100"
+                    alt="/book-img"
+                    srcset=""
                   />
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Title" />
+              <div class="col-md-6">
+                <div class="book-details">
+                  <h4 class="my-2">
+                    <span class="text-sm mx-2">Book: Title </span
+                    ><%=result.title %>
+                  </h4>
+                  <h4 class="text-warning">
+                    <span class="mx-2">Book: Price </span><%=result.price %>
+                  </h4>
+                  <p class="my-2">
+                    <span class="mx-2">Book: Description </span
+                    ><%=result.description %>
+                  </p>
+                  <p class="my-2">
+                    <span class="mx-2">Book: Catalogue </span
+                    ><%=result.catalogue %>
+                  </p>
+
+                  <p class="my-2">
+                    <span class="mx-2">Book: Author </span><%=result.author %>
+                  </p>
+                  <p class="my-2">
+                    <span class="mx-2">Book: ISBN NO </span><%=result.isbn %>
+                  </p>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <input
-                    type="submit"
-                    class="btn btn-warning w-100"
-                    value="Order"
-                  />
-                </div>
-              </div>
+              <input
+                type="submit"
+                value="Proceed to payment"
+                name="submit"
+                class="btn btn-warning text-light offset-md-4 my-3"
+              />
             </div>
           </form>
         </div>

@@ -1,0 +1,11 @@
+{
+  _id: new ObjectId("63537bcd339f7506341529ce"),
+  email: 'ceo@garoweb.com',
+  name: 'yusuf ahmad',
+  phone: '07066492821',
+  street: 'garo',
+  lga: 'kabo',
+  state: 'kano state',
+  password: '$2a$10$A97Ke6/DMOMOf2dDdkZFCehdTeY/kpm4NZijNdLSDuVChR2F181K6',
+  __v: 0
+}

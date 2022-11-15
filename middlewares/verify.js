@@ -31,8 +31,9 @@ const checkUser = async (req, res, next) => {
         res.locals.user = null;
         next();
       } else {
-        console.log(decodedToken);
-        let user = await User.findById(decodedToken.id);
+        // console.log(decodedToken);
+        // console.log(token);
+        let user = await User.findById(decodedToken._id);
         res.locals.user = user;
         next();
       }

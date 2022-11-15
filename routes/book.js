@@ -3,6 +3,7 @@ const bookController = require("../controllers/book.controller");
 const upload = require("../middlewares/uploadMiddleware");
 const uploadProfile = require("../middlewares/picMiddleware");
 const { currentDate, appUrl, randomCode } = require("../config/constants");
+const { requireAuth, checkUser } = require("../middlewares/verify");
 const Book = require("../models/book");
 const path = require("path");
 const fs = require("fs");
@@ -44,7 +45,7 @@ router.post(
 );
 router.get("/all-books", bookController.get_all_book);
 
-router.get("/single/:id", bookController.get_pro_book);
+router.get("/single/:id", requireAuth, bookController.get_pro_book);
 router.get("/edit/:id", bookController.get_edit_book);
 
 router.get("/view/:id", bookController.get_view_book);

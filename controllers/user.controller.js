@@ -3,6 +3,7 @@ const Catalogue = require("../models/catalogue");
 const Book = require("../models/book");
 const Purchase = require("../models/purchase");
 const jwt = require("jsonwebtoken");
+var localStorage = require("localStorage");
 const {
   appUrl,
   randomCode,
@@ -314,13 +315,30 @@ module.exports.sign_user = async (req, res) => {
   }
 };
 module.exports.login_user = async (req, res) => {
+  const maxAge = 3 * 24 * 60 * 60;
   const { email, password } = req.body;
 
   try {
     const user = await User.login(email, password);
-    const token = createToken(user._id);
-    res.cookie("user", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ user: user._id });
+    const token = jwt.sign(
+      {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        street: user.street,
+      },
+      process.env.USER_SECRET,
+      function (err, token) {
+        res.cookie("user", token, {
+          httpOnly: true,
+          maxAge: maxAge * 1000,
+        });
+        res.status(200).json({ user: user, token: `Bearer ${token}` });
+        res.headers("Authorization", `Bearer ${token}`);
+      },
+      { expiresIn: "1h" }
+    );
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
