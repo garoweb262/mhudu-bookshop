@@ -57,6 +57,7 @@ router.post(
   bookController.purchase_book
 );
 router.get("/all-books", bookController.get_all_book);
+router.get("/my-books", bookController.get_user_book);
 
 router.get("/single/:id", requireAuth, bookController.get_pro_book);
 router.get("/edit/:id", bookController.get_edit_book);

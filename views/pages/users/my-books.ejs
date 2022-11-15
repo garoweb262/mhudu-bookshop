@@ -1,1 +1,68 @@
-my books
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title">My Books</h4>
+  </div>
+
+  <% if (message) { %>
+   <div class="alert  alert-dismissible fade show" alert-<%= message.type %> role="alert">
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+     
+    </button>
+    <strong><%= message.message %> </strong>
+   </div>
+  <% } %>
+  <div class="col-md-12">
+    <div class="card px-5 my-3">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">Books</h4>
+          
+        </div>
+      </div>
+    
+
+        <div class="table-responsive">
+          <% if (result != "") { %>
+            <table id="add-row" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Sn</th>
+                <th>Title</th>
+                <th>Catalogue</th>
+                <th>Author</th>
+                <th>Price</th>
+               
+              </tr>
+            </thead>
+
+            <tbody>
+              <% result.forEach((book, index) => {%>
+              <tr>
+                <td><%=++index%></td>
+                <td><%=book.title%></td>
+                <td><%=book.catalogue%></td>
+                <td><%=book.author%></td>
+                <td><%=book.price%></td>
+                
+              </tr>
+              <%})%>
+            </tbody>
+          </table>
+          <% } else { %>
+         <h1 class="text-warning ">No Book found</h1>
+            <% } %> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <script>
+      $(document).ready(function () {
+        $("table").DataTable({
+          order: [0, "desc"],
+        });
+      });
+    </script>
+
+

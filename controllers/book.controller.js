@@ -229,3 +229,27 @@ module.exports.purchase_book = async (req, res) => {
     link: payment.data.data.link,
   });
 };
+module.exports.get_user_book = (req, res) => {
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+
+    Purchase.find({ userId: decodedToken._id }).exec((err, bookResult) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        let id = req.params.id;
+        Book.find({ bookId: bookResult._id }).exec((err, result) => {
+          res.render("../views/pages/users/my-books", {
+            title: "My Books",
+            layout: "./layouts/dashboard-lay",
+            result: bookResult,
+            data: result,
+          });
+        });
+      }
+    });
+  } else {
+    res.json({ message: "invalid token" });
+  }
+};
