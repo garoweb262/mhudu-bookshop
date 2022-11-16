@@ -2,16 +2,6 @@
   <div class="page-header">
     <h4 class="page-title">My Books</h4>
   </div>
-
-  <% if (message) { %>
-   <div class="alert  alert-dismissible fade show" alert-<%= message.type %> role="alert">
-    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-     
-    </button>
-    <strong><%= message.message %> </strong>
-   </div>
-  <% } %>
   <div class="col-md-12">
     <div class="card px-5 my-3">
       <div class="card-header">
@@ -21,7 +11,7 @@
         </div>
       </div>
     
-
+<form>
         <div class="table-responsive">
           <% if (result != "") { %>
             <table id="add-row" class="display table table-striped table-hover">
@@ -53,6 +43,7 @@
          <h1 class="text-warning ">No Book found</h1>
             <% } %> 
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -63,6 +54,20 @@
           order: [0, "desc"],
         });
       });
+       const token = localStorage.getItem("userToken");
+  alert(token);
+        try {
+      const res = await fetch("/book/my-books/", {
+        method: "POST",
+        
+        headers: { Authorization: token, "Content-type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data) alert(result);
+    } catch (err) {
+      console.log(err);
+    }
     </script>
 
 
