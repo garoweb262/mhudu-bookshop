@@ -1,12 +1,12 @@
 <div class="page-inner">
   <div class="page-header">
-    <h4 class="page-title">My Books</h4>
+    <h4 class="page-title">Books Purchased</h4>
   </div>
   <div class="col-md-12">
     <div class="card px-5 my-3">
       <div class="card-header">
         <div class="d-flex align-items-center">
-          <h4 class="card-title">Books</h4>
+          <h4 class="card-title">My Books</h4>
           
         </div>
       </div>
@@ -22,7 +22,8 @@
                 <th>Catalogue</th>
                 <th>Author</th>
                 <th>Price</th>
-               
+                <th>Date Purchased</th>
+                <th style="width: 10%">Action</th>
               </tr>
             </thead>
 
@@ -34,7 +35,24 @@
                 <td><%=book.catalogue%></td>
                 <td><%=book.author%></td>
                 <td><%=book.price%></td>
-                
+                <td><%=book.date%></td>
+                  <td>
+                  <div class="form-button-action">
+                    <button
+                      type="button"
+                      data-toggle="tooltip"
+                      title=""
+                      class="btn btn-link btn-primary btn-sm"
+                      data-original-title="View Book"
+                    >
+                    <a class="" href="/my-book/view/<%=book._id%>">
+                      <i class="fa fa-eye text-success"></i>
+                      </a>
+                      </>
+                    </button>
+                  
+                  </div>
+                </td>
               </tr>
               <%})%>
             </tbody>
@@ -57,7 +75,7 @@
        const token = localStorage.getItem("userToken");
   alert(token);
         try {
-      const res = await fetch("/book/my-books/", {
+      const res = await fetch("/book/my-books", {
         method: "POST",
         
         headers: { Authorization: token, "Content-type": "application/json" },

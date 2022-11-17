@@ -44,6 +44,7 @@ adminSchema.statics.login = async function (email, password) {
   }
   throw Error("incorrect email");
 };
+
 const Admin = mongoose.model("admin", adminSchema);
 
 module.exports = Admin;

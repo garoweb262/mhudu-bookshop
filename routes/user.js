@@ -36,5 +36,6 @@ router.get("/all-rents", userController.get_allRental);
 router.get("/all-users", userController.get_allUsers);
 router.get("/title/:id", userController.get_product_cat);
 router.get("/delete/:id", userController.delete_user);
+router.get("/my-book/view/:id", userController.get_my_view_book);
 
 module.exports = router;

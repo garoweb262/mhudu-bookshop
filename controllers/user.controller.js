@@ -307,8 +307,8 @@ module.exports.sign_user = async (req, res) => {
       password,
       date: dates,
     });
-    const token = createToken(user._id);
-    res.cookie("user", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    // const token = createToken(user._id);
+    // res.cookie("user", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user });
   } catch (err) {
     const errors = handleErrors(err);
@@ -458,4 +458,18 @@ module.exports.updatePass = (req, res) => {
         error: error,
       });
     });
+};
+module.exports.get_my_view_book = async (req, res) => {
+  let id = req.params.id;
+  Book.findById(id).exec((err, result) => {
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      res.render("../views/pages/users/view-book", {
+        title: `${result.title}`,
+        layout: "./layouts/dashboard-lay",
+        result,
+      });
+    }
+  });
 };

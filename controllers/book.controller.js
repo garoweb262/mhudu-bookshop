@@ -231,17 +231,19 @@ module.exports.purchase_book = async (req, res) => {
   });
 };
 module.exports.get_user_book = (req, res) => {
-  if (req.headers.authorization) {
-    const token = req.headers.authorization.split(" ")[1];
+  const token = req.cookies.user;
+  if (token) {
+    // const token = req.headers.authorization.split(" ")[1];
+
     const decodedToken = jwt.verify(token, process.env.USER_SECRET);
 
-    Purchase.find({ userId: decodedToken._id }).exec((err, bookResult) => {
+    Purchase.find({ userId: decodedToken._id }).exec((err, result) => {
       if (err) {
         res.json({ message: err.message });
       } else {
-        Book.find({ bookId: bookResult._id }).exec((err, result) => {
+        Book.find({ bookId: result._id }).exec((err, bookResult) => {
           res.render("../views/pages/users/my-books", {
-            title: "My Books",
+            title: "Purchased Books",
             layout: "./layouts/dashboard-lay",
             result: bookResult,
             data: result,
