@@ -255,3 +255,28 @@ module.exports.get_user_book = (req, res) => {
     res.json({ message: "invalid token" });
   }
 };
+module.exports.get_user_rent = (req, res) => {
+  const token = req.cookies.user;
+  if (token) {
+    // const token = req.headers.authorization.split(" ")[1];
+
+    const decodedToken = jwt.verify(token, process.env.USER_SECRET);
+
+    Rental.find({ userId: decodedToken._id }).exec((err, result) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        Book.find({ bookId: result._id }).exec((err, bookResult) => {
+          res.render("../views/pages/users/my-rent", {
+            title: "Purchased Books",
+            layout: "./layouts/dashboard-lay",
+            result: bookResult,
+            data: result,
+          });
+        });
+      }
+    });
+  } else {
+    res.json({ message: "invalid token" });
+  }
+};

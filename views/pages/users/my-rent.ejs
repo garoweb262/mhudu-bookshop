@@ -1,111 +1,17 @@
 <div class="page-inner">
   <div class="page-header">
-    <h4 class="page-title">My Books</h4>
+    <h4 class="page-title">Books Rent</h4>
   </div>
-
-  <% if (message) { %>
-   <div class="alert  alert-dismissible fade show" alert-<%= message.type %> role="alert">
-    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-     
-    </button>
-    <strong><%= message.message %> </strong>
-   </div>
-  <% } %>
   <div class="col-md-12">
     <div class="card px-5 my-3">
       <div class="card-header">
         <div class="d-flex align-items-center">
-          <h4 class="card-title">All Books</h4>
-          <button
-            class="btn btn-warning btn-round ml-auto"
-            data-toggle="modal"
-            data-target="#addRowModal"
-          >
-          <a href="/add-book" class="text-light">
-            <i class="fa fa-plus"></i>
-            Add Book
-            </a>
-          </button>
+          <h4 class="card-title">My Books</h4>
+          
         </div>
       </div>
     
-
-        <div class="table-responsive">
-          <% if (result != "") { %>
-            <table id="add-row" class="display table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Sn</th>
-                <th>Title</th>
-                <th>Catal<div class="page-inner">
-  <div class="page-header">
-    <h4 class="page-title">My Books</h4>
-  </div>
-
-  <% if (message) { %>
-   <div class="alert  alert-dismissible fade show" alert-<%= message.type %> role="alert">
-    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-     
-    </button>
-    <strong><%= message.message %> </strong>
-   </div>
-  <% } %>
-  <div class="col-md-12">
-    <div class="card px-5 my-3">
-      <div class="card-header">
-        <div class="d-flex align-items-center">
-          <h4 class="card-title">All Books</h4>
-          <button
-            class="btn btn-warning btn-round ml-auto"
-            data-toggle="modal"
-            data-target="#addRowModal"
-          >
-          <a href="/add-book" class="text-light">
-            <i class="fa fa-plus"></i>
-            Add Book
-            </a>
-          </button>
-        </div>
-      </div>
-    
-
-        <div class="table-responsive">
-          <% if (result != "") { %>
-            <table id="ad<div class="page-inner">
-  <div class="page-header">
-    <h4 class="page-title">My Books</h4>
-  </div>
-
-  <% if (message) { %>
-   <div class="alert  alert-dismissible fade show" alert-<%= message.type %> role="alert">
-    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-     
-    </button>
-    <strong><%= message.message %> </strong>
-   </div>
-  <% } %>
-  <div class="col-md-12">
-    <div class="card px-5 my-3">
-      <div class="card-header">
-        <div class="d-flex align-items-center">
-          <h4 class="card-title">All Books</h4>
-          <button
-            class="btn btn-warning btn-round ml-auto"
-            data-toggle="modal"
-            data-target="#addRowModal"
-          >
-          <a href="/add-book" class="text-light">
-            <i class="fa fa-plus"></i>
-            Add Book
-            </a>
-          </button>
-        </div>
-      </div>
-    
-
+<form>
         <div class="table-responsive">
           <% if (result != "") { %>
             <table id="add-row" class="display table table-striped table-hover">
@@ -116,19 +22,26 @@
                 <th>Catalogue</th>
                 <th>Author</th>
                 <th>Price</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Rent Reference</th>
                 <th style="width: 10%">Action</th>
               </tr>
             </thead>
 
             <tbody>
-              <% result.forEach((book, index) => {%>
+              <% result.forEach((book,  index) => {%>
+              <% data.forEach((rent,  index) => {%>
               <tr>
                 <td><%=++index%></td>
                 <td><%=book.title%></td>
                 <td><%=book.catalogue%></td>
                 <td><%=book.author%></td>
-                <td><%=book.price%></td>
-                <td>
+                 <td><%=book.price%></td>
+                <td><%=rent.startDate%></td>
+                <td><%=rent.endDate%></td>
+                <td><%=rent.reference%></td>
+                  <td>
                   <div class="form-button-action">
                     <button
                       type="button"
@@ -137,148 +50,16 @@
                       class="btn btn-link btn-primary btn-sm"
                       data-original-title="View Book"
                     >
-                    <a class="" href="/book/view/<%=book._id%>">
+                    <a class="" href="/my-rent/view/<%=book._id%>">
                       <i class="fa fa-eye text-success"></i>
                       </a>
                       </>
                     </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-sm"
-                      data-original-title="Edit Task"
-                    >
-                    <a class="" href="/book/edit/<%=book._id%>">
-                      <i class="fa fa-edit text-primary"></i>
-                      </a>
-                      </>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-danger"
-                      data-original-title="Remove Book"
-                    >  <a href="/book/delete/<%= book._id %>">  <i class="fa fa-times text-danger"></i></a>
-                    
-                    </button>
-                  </div><div class="page-inner">
-  <div class="page-header">
-    <h4 class="page-title">My Books</h4>
-  </div>
-
-  <% if (message) { %>
-   <div class="alert  alert-dismissible fade show" alert-<%= message.type %> role="alert">
-    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-     
-    </button>
-    <strong><%= message.message %> </strong>
-   </div>
-  <% } %>
-  <div class="col-md-12">
-    <div class="card px-5 my-3">
-      <div class="card-header">
-        <div class="d-flex align-items-center">
-          <h4 class="card-title">All Books</h4>
-          <button
-            class="btn btn-warning btn-round ml-auto"
-            data-toggle="modal"
-            data-target="#addRowModal"
-          >
-          <a href="/add-book" class="text-light">
-            <i class="fa fa-plus"></i>
-            Add Book
-            </a>
-          </button>
-        </div>
-      </div>
-    
-
-        <div class="table-responsive">
-          <% if (result != "") { %>
-            <table id="add-row" class="display table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Sn</th>
-                <th>Title</th>
-                <th>Catalogue</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th style="width: 10%">Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% result.forEach((book, index) => {%>
-              <tr>
-                <td><%=++index%></td>
-                <td><%=book.title%></td>
-                <td><%=book.catalogue%></td>
-                <td><%=book.author%></td>
-                <td><%=book.price%></td>
-                <td>
-                  <div class="form-button-action">
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-sm"
-                      data-original-title="View Book"
-                    >
-                    <a class="" href="/book/view/<%=book._id%>">
-                      <i class="fa fa-eye text-success"></i>
-                      </a>
-                      </>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-sm"
-                      data-original-title="Edit Task"
-                    >
-                    <a class="" href="/book/edit/<%=book._id%>">
-                      <i class="fa fa-edit text-primary"></i>
-                      </a>
-                      </>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-danger"
-                      data-original-title="Remove Book"
-                    >  <a href="/book/delete/<%= book._id %>">  <i class="fa fa-times text-danger"></i></a>
-                    
-                    </button>
+                  
                   </div>
                 </td>
               </tr>
               <%})%>
-            </tbody>
-          </table>
-          <% } else { %>
-         <h1 class="text-warning ">No Book found</h1>
-            <% } %> 
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    <script>
-      $(document).ready(function () {
-        $("table").DataTable({
-          order: [0, "desc"],
-        });
-      });
-    </script>
-
-
-
-                </td>
-              </tr>
               <%})%>
             </tbody>
           </table>
@@ -286,6 +67,7 @@
          <h1 class="text-warning ">No Book found</h1>
             <% } %> 
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -296,157 +78,20 @@
           order: [0, "desc"],
         });
       });
-    </script>
-
-
-d-row" class="display table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Sn</th>
-                <th>Title</th>
-                <th>Catalogue</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th style="width: 10%">Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% result.forEach((book, index) => {%>
-              <tr>
-                <td><%=++index%></td>
-                <td><%=book.title%></td>
-                <td><%=book.catalogue%></td>
-                <td><%=book.author%></td>
-                <td><%=book.price%></td>
-                <td>
-                  <div class="form-button-action">
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-sm"
-                      data-original-title="View Book"
-                    >
-                    <a class="" href="/book/view/<%=book._id%>">
-                      <i class="fa fa-eye text-success"></i>
-                      </a>
-                      </>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-sm"
-                      data-original-title="Edit Task"
-                    >
-                    <a class="" href="/book/edit/<%=book._id%>">
-                      <i class="fa fa-edit text-primary"></i>
-                      </a>
-                      </>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-danger"
-                      data-original-title="Remove Book"
-                    >  <a href="/book/delete/<%= book._id %>">  <i class="fa fa-times text-danger"></i></a>
-                    
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <%})%>
-            </tbody>
-          </table>
-          <% } else { %>
-         <h1 class="text-warning ">No Book found</h1>
-            <% } %> 
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    <script>
-      $(document).ready(function () {
-        $("table").DataTable({
-          order: [0, "desc"],
-        });
+       const token = localStorage.getItem("userToken");
+  alert(token);
+        try {
+      const res = await fetch("/book/my-books", {
+        method: "POST",
+        
+        headers: { Authorization: token, "Content-type": "application/json" },
       });
-    </script>
-
-
-ogue</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th style="width: 10%">Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% result.forEach((book, index) => {%>
-              <tr>
-                <td><%=++index%></td>
-                <td><%=book.title%></td>
-                <td><%=book.catalogue%></td>
-                <td><%=book.author%></td>
-                <td><%=book.price%></td>
-                <td>
-                  <div class="form-button-action">
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-sm"
-                      data-original-title="View Book"
-                    >
-                    <a class="" href="/book/view/<%=book._id%>">
-                      <i class="fa fa-eye text-success"></i>
-                      </a>
-                      </>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-sm"
-                      data-original-title="Edit Task"
-                    >
-                    <a class="" href="/book/edit/<%=book._id%>">
-                      <i class="fa fa-edit text-primary"></i>
-                      </a>
-                      </>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-danger"
-                      data-original-title="Remove Book"
-                    >  <a href="/book/delete/<%= book._id %>">  <i class="fa fa-times text-danger"></i></a>
-                    
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <%})%>
-            </tbody>
-          </table>
-          <% } else { %>
-         <h1 class="text-warning ">No Book found</h1>
-            <% } %> 
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    <script>
-      $(document).ready(function () {
-        $("table").DataTable({
-          order: [0, "desc"],
-        });
-      });
+      const data = await res.json();
+      console.log(data);
+      if (data) alert(result);
+    } catch (err) {
+      console.log(err);
+    }
     </script>
 
 

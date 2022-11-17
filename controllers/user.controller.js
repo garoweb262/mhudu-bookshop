@@ -473,3 +473,36 @@ module.exports.get_my_view_book = async (req, res) => {
     }
   });
 };
+module.exports.get_my_view_rent = async (req, res) => {
+  let id = req.params.id;
+  Book.findById(id).exec((err, result) => {
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      res.render("../views/pages/users/rent-view", {
+        title: `${result.title}`,
+        layout: "./layouts/dashboard-lay",
+        result,
+      });
+    }
+  });
+};
+module.exports.rent_openPdf = async (req, res) => {
+  let id = req.params.id;
+  Book.findOne({
+    id: id,
+    fromDate: { $gte: startDate },
+    untilDate: { $lte: endDate },
+  }).exec((err, result) => {
+    if (err) {
+      res.json({ message: err.message });
+    } else {
+      res.render("../views/pages/admin/open-pdf", {
+        title: `${result.title}`,
+        pdf: `${process.env.DOMAIN_NAME}/uploads/${result.pdf}`,
+        layout: "./layouts/pdf",
+        result,
+      });
+    }
+  });
+};
