@@ -38,6 +38,6 @@ router.get("/title/:id", userController.get_product_cat);
 router.get("/delete/:id", userController.delete_user);
 router.get("/my-book/view/:id", userController.get_my_view_book);
 router.get("/my-rent/view/:id", userController.get_my_view_rent);
-router.get("/rent-open-pdf/:id", userController.rent_openPdf);
+router.get("/rent-open-pdf/:id", checkUser, userController.rent_openPdf);
 
 module.exports = router;

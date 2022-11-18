@@ -29,13 +29,14 @@
 
             <tbody>
               <% result.forEach((book, index) => {%>
+                  <% data.forEach((rent,  index) => {%>
               <tr>
                 <td><%=++index%></td>
                 <td><%=book.title%></td>
                 <td><%=book.catalogue%></td>
                 <td><%=book.author%></td>
                 <td><%=book.price%></td>
-                <td><%=book.date%></td>
+                <td><%=rent.createdAt%></td>
                   <td>
                   <div class="form-button-action">
                     <button
@@ -54,6 +55,7 @@
                   </div>
                 </td>
               </tr>
+              <%})%>
               <%})%>
             </tbody>
           </table>

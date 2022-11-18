@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Catalogue = require("../models/catalogue");
 const Book = require("../models/book");
 const Purchase = require("../models/purchase");
+const Rental = require("../models/rental");
 const jwt = require("jsonwebtoken");
 var localStorage = require("localStorage");
 const {
@@ -489,20 +490,29 @@ module.exports.get_my_view_rent = async (req, res) => {
 };
 module.exports.rent_openPdf = async (req, res) => {
   let id = req.params.id;
-  Book.findOne({
-    id: id,
-    fromDate: { $gte: startDate },
-    untilDate: { $lte: endDate },
-  }).exec((err, result) => {
-    if (err) {
-      res.json({ message: err.message });
-    } else {
-      res.render("../views/pages/admin/open-pdf", {
-        title: `${result.title}`,
-        pdf: `${process.env.DOMAIN_NAME}/uploads/${result.pdf}`,
-        layout: "./layouts/pdf",
-        result,
-      });
-    }
-  });
+  const token = req.cookies.user;
+  if (token) {
+    const decodedToken = jwt.verify(token, process.env.USER_SECRET);
+
+    Rental.find({
+      userId: decodedToken._id,
+      createdAt: { $gte: ISODate(startDate), $lt: ISODate(endDate) },
+    }).exec((err, result) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        Book.find({ bookId: result._id }).exec((err, bookResult) => {
+          res.render("../views/pages/users/open-pdf", {
+            title: `${result.title}`,
+            pdf: `${process.env.DOMAIN_NAME}/uploads/${result.pdf}`,
+            layout: "./layouts/pdf",
+            result,
+            bookResult,
+          });
+        });
+      }
+    });
+  } else {
+    res.json({ message: "invalid token" });
+  }
 };
