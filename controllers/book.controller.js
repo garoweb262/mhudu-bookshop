@@ -7,6 +7,7 @@ const {
   randomPin,
   randomCode,
   generatePayment,
+  rentGeneratePayment,
 } = require("../config/constants");
 const fs = require("fs");
 const path = require("path");
@@ -166,7 +167,7 @@ module.exports.rent_a_book = async (req, res) => {
       .status(400)
       .json({ success: false, message: "couldn't find book" });
 
-  const payment = await generatePayment({
+  const payment = await rentGeneratePayment({
     tx_ref: reference,
     amount: result.price,
     email: req.userData.email,

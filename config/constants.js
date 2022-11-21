@@ -4,8 +4,8 @@ var fs = require("fs");
 require("dotenv").config();
 var nodemailer = require("nodemailer");
 module.exports = constant = {
-  appName: "NoorwaBookshop",
-  appMail: "muhdgazzali01@gmail.com",
+  appName: "MH Bookshop",
+  appMail: "umarmuhammad408@gmail.com",
   appUrl: "http://localhost:8000",
   appHost: "localhost:8000", //node mailer uses this backend host
   paginate: (totalCount, limit, page) => {
@@ -172,17 +172,37 @@ module.exports = constant = {
     // console.log(resp);
     return resp;
   },
-  verifyPayment: async (data) => {
-    const resp = await axios.get(
-      `https://api.flutterwave.com/v3/transactions/${trxRef}/verify`,
+  rentGeneratePayment: async (data) => {
+    const resp = await axios.post(
+      "https://api.flutterwave.com/v3/payments",
+      {
+        tx_ref: data.tx_ref,
+        amount: data.amount,
+        currency: "NGN",
+        redirect_url: `${process.env.FLUTTERWAVE_REDIRECTO}`, //"https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",
+        // meta: {
+        //   consumer_id: 23,
+        //   consumer_mac: "92a3-912ba-1192a",
+        // },
+        customer: {
+          email: data.email,
+          phonenumber: data.phonenumber,
+          name: data.name,
+        },
+        customizations: {
+          title: constant.appName,
+          // logo: Config.appLogo,
+        },
+      },
       {
         headers: {
           authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
-          "Content-Type": "application/json",
+          //   "Content-Type": "application/json",
         },
       }
     );
-    console.log(resp);
+
+    // console.log(resp);
     return resp;
   },
 };

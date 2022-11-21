@@ -158,7 +158,20 @@ module.exports.get_verify = async (req, res) => {
       console.log(err);
     } else {
       res.render("../views/pages/guest/verify", {
-        title: "Verify Payment",
+        title: "Payment Status",
+        layout: "./layouts/admin",
+        data,
+      });
+    }
+  });
+};
+module.exports.get_rent_verify = async (req, res) => {
+  Purchase.find().then((data, err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("../views/pages/guest/rent-verify", {
+        title: "Payment Status",
         layout: "./layouts/admin",
         data,
       });
