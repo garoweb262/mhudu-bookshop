@@ -13,6 +13,7 @@
         <!-- Modal -->
 
         <div class="table-responsive">
+          <% if (result != "" && data !="" && user !="") { %>
           <table id="add-row" class="display table table-striped table-hover">
             <thead>
               <tr>
@@ -21,50 +22,42 @@
                 <th>Catalogue</th>
                 <th>Author</th>
                 <th>Price</th>
-                <th>Duration</th>
+                <th>From</th>
+                <th>To</th>
                 <th>Rented By</th>
-                <th>Date Rented</th>
-                <th style="width: 10%">Action</th>
+                <th>Date Rent</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr key="{index}">
-                <td>1</td>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>5000</td>
-                <td>1 Week</td>
-                <td>Umar Hudu</td>
-                <td>22/10/2022</td>
-                <td>
-                  <div class="form-button-action">
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-primary btn-lg"
-                      data-original-title="Edit Task"
-                    >
-                      <i class="fa fa-eye"></i>
-                    </button>
-                    <button
-                      type="button"
-                      data-toggle="tooltip"
-                      title=""
-                      class="btn btn-link btn-danger"
-                      data-original-title="Remove"
-                    >
-                      <i class="fa fa-times"></i>
-                    </button>
-                  </div>
-                </td>
+              <% data.forEach((pur, index) => {%> <% result.forEach((book) =>
+              {%> <% user.forEach((user) => {%>
+              <tr>
+                <td><%=++index %></td>
+                <td><%=book.title %></td>
+                <td><%=book.catalogue %></td>
+                <td><%=book.author %></td>
+                <td><%=pur.price %></td>
+                <td><%=pur.startDate %></td>
+                <td><%=pur.endDate %></td>
+                <td><%=user.name %></td>
+                <td><%=pur.createdAt %></td>
               </tr>
+              <%})%> <%})%> <%})%>
             </tbody>
           </table>
+          <% } else { %>
+          <h1 class="text-warning">No Rent found</h1>
+          <% } %>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function () {
+    $("table").DataTable({
+      order: [0, "desc"],
+    });
+  });
+</script>

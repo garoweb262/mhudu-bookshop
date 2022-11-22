@@ -1,4 +1,8 @@
 const Admin = require("../models/admin");
+const Purchase = require("../models/purchase");
+const Rental = require("../models/rental");
+const User = require("../models/user");
+const Book = require("../models/book");
 const jwt = require("jsonwebtoken");
 const { currentDate } = require("../config/constants");
 //handle errors
@@ -89,4 +93,42 @@ module.exports.login_admin = async (req, res) => {
 module.exports.get_logout = async (req, res) => {
   res.cookie("admin", "", { maxAge: 1 });
   res.redirect("/admin");
+};
+module.exports.get_all_purchase = (req, res) => {
+  Purchase.find().exec((err, result) => {
+    User.find({ userId: result._id }).exec((err, userResult) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        Book.find({ bookId: result._id }).exec((err, bookResult) => {
+          res.render("../views/pages/admin/all-purchase", {
+            title: "All Purchased Books",
+            layout: "./layouts/admin-dash",
+            result: bookResult,
+            data: result,
+            user: userResult,
+          });
+        });
+      }
+    });
+  });
+};
+module.exports.get_all_rent = (req, res) => {
+  Rental.find().exec((err, result) => {
+    User.find({ userId: result._id }).exec((err, userResult) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        Book.find({ bookId: result._id }).exec((err, bookResult) => {
+          res.render("../views/pages/admin/all-rental", {
+            title: "All Rented Books",
+            layout: "./layouts/admin-dash",
+            result: bookResult,
+            data: result,
+            user: userResult,
+          });
+        });
+      }
+    });
+  });
 };
