@@ -529,3 +529,23 @@ module.exports.rent_openPdf = async (req, res) => {
     res.json({ message: "invalid token" });
   }
 };
+module.exports.search_book = (req, res) => {
+  const { term } = req.query;
+  Book.find({ title: new RegExp(".*" + term + ".*") })
+    .then((result) => {
+      if (!result)
+        res.status(404).send({ success: true, message: "Book not found " });
+      else
+        res.render("../views/pages/guest/search-book", {
+          title: "MH Bookshop",
+          layout: "./layouts/admin",
+          result: result,
+        });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        success: false,
+        message: "Error retrieving Book",
+      });
+    });
+};

@@ -7,7 +7,7 @@ const router = Router();
 router.get("*", checkUser);
 router.get("/", userController.get_product);
 router.get("/about", userController.get_about);
-
+router.get("/search-book", userController.search_book);
 router.get("/cart", requireAuth, userController.get_cart);
 router.get("/purchase/:id", requireAuth, userController.get_purchase);
 router.get("/verify", requireAuth, userController.get_verify);

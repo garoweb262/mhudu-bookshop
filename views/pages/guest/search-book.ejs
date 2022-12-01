@@ -1,0 +1,59 @@
+<style>
+  img .img-fluid {
+    width: 100%;
+    height: 60% !important;
+  }
+  .uhm {
+    color: black;
+  }
+  .uhm:hover,
+  .uhm:focus {
+    text-decoration: none;
+    outline: none;
+    color: #000;
+  }
+</style>
+<div class="container my-5">
+  <a class="hoverm" href="/">Go Home</a>
+  <div class="header my-5">
+    <h2><%= result.name %></h2>
+  </div>
+  <div class="row">
+    <% result.forEach((row, index) => {%>
+
+    <div class="col-md-3">
+      <a class="uhm" href="/book/single/<%= row._id %>">
+        <div class="card text-center">
+          <div class="card-body">
+            <img
+              src="/<%= row.dp %>"
+              class="img-fluid"
+              alt="book-img"
+              srcset=""
+            />
+          </div>
+          <div class="details py-2">
+            <h3 class="">
+              <span class="mx-1 text-success">Book title:</span><%= row.title %>
+            </h3>
+            <p class="">
+              <span class="mx-1 text-success">Book catalogue:</span><%=
+              row.catalogue %>
+            </p>
+            <p class="">
+              <span class="mx-1 text-success">Book author:</span><%= row.author
+              %>
+            </p>
+            <p class="">
+              <span class="mx-1 text-success">Book description:</span><%=
+              row.description %>
+            </p>
+            <!-- <button class="btn btn-warning mb-3">Add to cart</button> -->
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <%})%>
+  </div>
+</div>

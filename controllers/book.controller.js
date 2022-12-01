@@ -279,18 +279,3 @@ module.exports.get_user_rent = (req, res) => {
     res.json({ message: "invalid token" });
   }
 };
-module.exports.search_book = (req, res) => {
-  const title = req.params.title;
-  Book.find({ title: new RegExp(".*" + req.body.title + ".*") })
-    .then((data) => {
-      if (!data)
-        res.status(404).send({ success: true, message: "Book not found " });
-      else res.status(200).json({ success: true, data: data });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        success: false,
-        message: "Error retrieving Book",
-      });
-    });
-};
