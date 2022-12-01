@@ -103,6 +103,6 @@ app.get("/read-cookies", (req, res) => {
   res.json(cookies);
 });
 
-app.listen(APP_PORT, function () {
-  console.log("server running " + APP_PORT);
+app.listen(process.env.APP_PORT, function () {
+  console.log("server running " + process.env.APP_PORT);
 });
