@@ -56,6 +56,7 @@ router.post(
   requireAuth,
   bookController.purchase_book
 );
+router.get("/search-book", bookController.search_book);
 router.get("/all-books", bookController.get_all_book);
 router.get("/my-books", checkUser, bookController.get_user_book);
 router.get("/my-rent", checkUser, bookController.get_user_rent);
