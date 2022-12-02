@@ -508,41 +508,22 @@ module.exports.rent_openPdf = async (req, res) => {
     const decodedToken = jwt.verify(token, process.env.USER_SECRET);
 
     Rental.find({
-      // userId: decodedToken._id,
-      $and: [
-        { userId: decodedToken._id },
-        { bookId: id },
-        { startDate: { $lte: new Date(currentDate()) } },
-        { endDate: { $gte: new Date(currentDate()) } },
-      ],
-    })
-      // Rental.aggregate([
-      //   { $match: { userId: decodedToken._id } },
-      //   { $match: { bookId: id } },
-      //   {
-      //     $match: {
-      //       $and: [
-      //         { startDate: { $lte: new Date(currentDate()) } },
-      //         { endDate: { $gte: new Date(currentDate()) } },
-      //       ],
-      //     },
-      //   },
-      // ])
-      .exec((err, result) => {
-        if (err) {
-          res.json({ message: err.message });
-        } else {
-          Book.findOne({ id: result._id }).exec((err, bookResult) => {
-            res.render("../views/pages/users/open-pdf", {
-              title: `${bookResult.title}`,
-              pdf: `${process.env.DOMAIN_NAME}/uploads/${bookResult.pdf}`,
-              layout: "./layouts/pdf",
-              result,
-              bookResult,
-            });
+      userId: decodedToken._id,
+    }).exec((err, result) => {
+      if (err) {
+        res.json({ message: err.message });
+      } else {
+        Book.findOne({ id: result._id }).exec((err, bookResult) => {
+          res.render("../views/pages/users/open-pdf", {
+            title: `${bookResult.title}`,
+            pdf: `${process.env.DOMAIN_NAME}/uploads/${bookResult.pdf}`,
+            layout: "./layouts/pdf",
+            result,
+            bookResult,
           });
-        }
-      });
+        });
+      }
+    });
   } else {
     res.json({ message: "invalid token" });
   }
