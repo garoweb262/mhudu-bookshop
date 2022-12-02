@@ -30,17 +30,17 @@
             </thead>
 
             <tbody>
-              <% result.forEach((book,  index) => {%>
-              <% data.forEach((rent,  index) => {%>
+              <% result.forEach((rental,  index) => {%>
+          
               <tr>
                 <td><%=++index%></td>
-                <td><%=book.title%></td>
-                <td><%=book.catalogue%></td>
-                <td><%=book.author%></td>
-                 <td><%=book.price%></td>
-                <td><%=rent.startDate%></td>
-                <td><%=rent.endDate%></td>
-                <td><%=rent.reference%></td>
+                <td><%=rental.bookId.title%></td>
+                <td><%=rental.bookId.catalogue%></td>
+                <td><%=rental.bookId.author%></td>
+                 <td><%=rental.price%></td>
+                <td><%=rental.startDate%></td>
+                <td><%=rental.endDate%></td>
+                <td><%=rental.reference%></td>
                   <td>
                   <div class="form-button-action">
                     <button
@@ -50,7 +50,7 @@
                       class="btn btn-link btn-primary btn-sm"
                       data-original-title="View Book"
                     >
-                    <a class="" href="/my-rent/view/<%=book._id%>">
+                    <a class="" href="/my-rent/view/<%=rental._id%>">
                       <i class="fa fa-eye text-success"></i>
                       </a>
                       </>
@@ -60,7 +60,7 @@
                 </td>
               </tr>
               <%})%>
-              <%})%>
+            
             </tbody>
           </table>
           <% } else { %>

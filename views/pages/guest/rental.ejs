@@ -91,8 +91,8 @@
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const startDate = form.startDate.value;
-    const endDate = form.endDate.value;
+    const startDate = new Date(form.startDate.value).getTime();
+    const endDate = new Date(form.endDate.value).getTime();
     try {
       const res = await fetch("/book/rent-book/<%= result._id %>", {
         method: "POST",
@@ -108,5 +108,7 @@
     } catch (err) {
       console.log(err);
     }
+    console.log(startDate)
+    console.log(endDate)
   });
 </script>
