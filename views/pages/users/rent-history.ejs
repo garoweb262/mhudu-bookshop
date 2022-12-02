@@ -1,6 +1,6 @@
 <div class="page-inner">
   <div class="page-header">
-    <h4 class="page-title">Books Purchased</h4>
+    <h4 class="page-title">Books Rent</h4>
   </div>
   <div class="col-md-12">
     <div class="card px-5 my-3">
@@ -22,21 +22,25 @@
                 <th>Catalogue</th>
                 <th>Author</th>
                 <th>Price</th>
-                <th>Date Purchased</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Rent Reference</th>
                 <th style="width: 10%">Action</th>
               </tr>
             </thead>
 
             <tbody>
-              <% result.forEach((purchase, index) => {%>
-                
+              <% result.forEach((rental,  index) => {%>
+          
               <tr>
                 <td><%=++index%></td>
-                <td><%=purchase.bookId.title%></td>
-                <td><%=purchase.bookId.catalogue%></td>
-                <td><%=purchase.bookId.author%></td>
-                <td><%=purchase.price%></td>
-                <td><%=purchase.createdAt%></td>
+                <td><%=rental.bookId.title%></td>
+                <td><%=rental.bookId.catalogue%></td>
+                <td><%=rental.bookId.author%></td>
+                 <td><%=rental.price%></td>
+                <td><%=rental.startDate%></td>
+                <td><%=rental.endDate%></td>
+                <td><%=rental.reference%></td>
                   <td>
                   <div class="form-button-action">
                     <button
@@ -46,7 +50,7 @@
                       class="btn btn-link btn-primary btn-sm"
                       data-original-title="View Book"
                     >
-                    <a class="" href="/my-book/view/<%=purchase._id%>">
+                    <a class="" href="/my-rent/view/<%=rental._id%>">
                       <i class="fa fa-eye text-success"></i>
                       </a>
                       </>
@@ -55,8 +59,8 @@
                   </div>
                 </td>
               </tr>
-            
               <%})%>
+            
             </tbody>
           </table>
           <% } else { %>

@@ -232,26 +232,20 @@ module.exports.purchase_book = async (req, res) => {
     link: payment.data.data.link,
   });
 };
-module.exports.get_user_book = (req, res) => {
+module.exports.get_user_book = async (req, res) => {
   const token = req.cookies.user;
   if (token) {
     // const token = req.headers.authorization.split(" ")[1];
 
     const decodedToken = jwt.verify(token, process.env.USER_SECRET);
-
-    Purchase.find({ userId: decodedToken._id }).exec((err, result) => {
-      if (err) {
-        res.json({ message: err.message });
-      } else {
-        Book.find({ bookId: result._id }).exec((err, bookResult) => {
-          res.render("../views/pages/users/my-books", {
-            title: "Purchased Books",
-            layout: "./layouts/dashboard-lay",
-            result: bookResult,
-            data: result,
-          });
-        });
-      }
+    const result = await Purchase.find({
+      userId: decodedToken._id,
+    }).populate("bookId userId");
+    console.log(result);
+    res.render("../views/pages/users/my-books", {
+      title: "Purchased Books",
+      layout: "./layouts/dashboard-lay",
+      result: result,
     });
   } else {
     res.json({ message: "invalid token" });
@@ -267,12 +261,27 @@ module.exports.get_user_rent = async (req, res) => {
       endDate: { $gt: Date.now() },
     }).populate("bookId userId");
     console.log(result);
-    // .exec((err, result) => {
-    // if (err) {
-    //   res.json({ message: err.message });
-    // } else {
-    //   Book.find({ bookId: result._id }).exec((err, bookResult) => {
-    //     console.log(bookResult);
+
+    res.render("../views/pages/users/my-rent", {
+      title: "Rented Books",
+      layout: "./layouts/dashboard-lay",
+
+      result: result,
+    });
+  } else {
+    res.json({ message: "invalid token" });
+  }
+};
+module.exports.get_user_rent_history = async (req, res) => {
+  const token = req.cookies.user;
+  if (token) {
+    const decodedToken = jwt.verify(token, process.env.USER_SECRET);
+
+    const result = await Rental.find({
+      userId: decodedToken._id,
+    }).populate("bookId userId");
+    console.log(result);
+
     res.render("../views/pages/users/my-rent", {
       title: "Rented Books",
       layout: "./layouts/dashboard-lay",

@@ -3,17 +3,18 @@ const mongoose = require("mongoose");
 const purchaseSchema = new mongoose.Schema(
   {
     bookId: {
-      type: String,
+      type: mongoose.Schema.ObjectId,
       required: true,
-      lowercase: true,
+      ref: "book",
     },
     status: {
       type: String,
       required: true,
     },
     userId: {
-      type: String,
+      type: mongoose.Schema.ObjectId,
       required: true,
+      ref: "user",
     },
     price: {
       type: String,

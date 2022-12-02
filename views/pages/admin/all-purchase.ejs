@@ -13,7 +13,7 @@
         <!-- Modal -->
 
         <div class="table-responsive">
-          <% if (result != "" && data !="" && user !="") { %>
+          <% if (result != "") { %>
           <table id="add-row" class="display table table-striped table-hover">
             <thead>
               <tr>
@@ -28,18 +28,17 @@
             </thead>
 
             <tbody>
-              <% data.forEach((pur, index) => {%> <% result.forEach((book) =>
-              {%> <% user.forEach((user) => {%>
+              <% result.forEach((pur, index) => {%>
               <tr>
                 <td><%=++index %></td>
-                <td><%=book.title %></td>
-                <td><%=book.catalogue %></td>
-                <td><%=book.author %></td>
+                <td><%=pur.bookId.title %></td>
+                <td><%=pur.bookId.catalogue %></td>
+                <td><%=pur.bookId.author %></td>
                 <td><%=pur.price %></td>
-                <td><%=user.name %></td>
+                <td><%=pur.userId.name %></td>
                 <td><%=pur.createdAt %></td>
               </tr>
-              <%})%> <%})%> <%})%>
+              <%})%>
             </tbody>
           </table>
           <% } else { %>
