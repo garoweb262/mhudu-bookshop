@@ -182,6 +182,7 @@ module.exports.rent_a_book = async (req, res) => {
   const { startDate, endDate } = req.body;
   const rental = await Rental.create({
     bookId: result._id,
+
     price: result.price,
     userId: req.userData._id,
     status: "pending",
