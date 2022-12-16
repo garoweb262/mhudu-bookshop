@@ -273,6 +273,7 @@ module.exports.get_user_rent = async (req, res) => {
   }
 };
 module.exports.get_user_rent_history = async (req, res) => {
+  Rental.deleteMany();
   const token = req.cookies.user;
   if (token) {
     const decodedToken = jwt.verify(token, process.env.USER_SECRET);
@@ -282,7 +283,7 @@ module.exports.get_user_rent_history = async (req, res) => {
     }).populate("bookId userId");
     console.log(result);
 
-    res.render("../views/pages/users/my-rent", {
+    res.render("../views/pages/users/rent-history", {
       title: "Rented Books",
       layout: "./layouts/dashboard-lay",
 

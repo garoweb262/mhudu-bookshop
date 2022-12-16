@@ -1,12 +1,12 @@
 <div class="page-inner">
   <div class="page-header">
-    <h4 class="page-title">Books Rent</h4>
+    <h4 class="page-title">Rented Books</h4>
   </div>
   <div class="col-md-12">
     <div class="card px-5 my-3">
       <div class="card-header">
         <div class="d-flex align-items-center">
-          <h4 class="card-title">My Books</h4>
+          <h4 class="card-title">My Rent History</h4>
           
         </div>
       </div>
@@ -43,17 +43,18 @@
                 <td><%=rental.reference%></td>
                   <td>
                   <div class="form-button-action">
+                     <a class="hoverm" href="/rental/<%=rental.bookId._id %> ">
                     <button
                       type="button"
-                      class="btn btn-warning text-light btn-sm"
+                      class="btn btn-warning text-light btn-lg"
                       
                     >
-                  <a class="hoverm" href="/rental/<%=result._id %> ">
+                 
                 Re rent
-              </a>
+              
                       </>
                     </button>
-                  
+                  </a>
                   </div>
                 </td>
               </tr>
