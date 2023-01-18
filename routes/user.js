@@ -29,6 +29,7 @@ router.get(
 );
 router.get("/my-books", requireAuth, requireAuth, userController.get_my_books);
 router.get("/logout", userController.get_logout);
+router.get("/faq", userController.get_faq);
 router.get("/add-catalogue", userController.get_catalogue_add);
 router.get("/add-book", userController.get_catalogue_form);
 router.get("/upload/:id", userController.get_upload_pdf);

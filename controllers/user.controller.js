@@ -100,6 +100,14 @@ module.exports.get_about = (req, res) => {
     });
   });
 };
+module.exports.get_faq = (req, res) => {
+  Catalogue.find().exec((err, catalogue) => {
+    res.render("../views/pages/guest/about", {
+      title: "Faq",
+      data: catalogue,
+    });
+  });
+};
 module.exports.get_contact = (req, res) => {
   Catalogue.find().exec((err, catalogue) => {
     res.render("../views/pages/guest/contact", {
@@ -540,7 +548,6 @@ module.exports.search_book = (req, res) => {
           layout: "./layouts/admin",
           result: result,
         });
-      
     })
     .catch((err) => {
       res.status(500).send({
