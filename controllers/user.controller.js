@@ -540,6 +540,7 @@ module.exports.search_book = (req, res) => {
           layout: "./layouts/admin",
           result: result,
         });
+      
     })
     .catch((err) => {
       res.status(500).send({
