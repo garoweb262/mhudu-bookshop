@@ -102,7 +102,7 @@ module.exports.get_about = (req, res) => {
 };
 module.exports.get_faq = (req, res) => {
   Catalogue.find().exec((err, catalogue) => {
-    res.render("../views/pages/guest/about", {
+    res.render("../views/pages/guest/faq", {
       title: "Faq",
       data: catalogue,
     });
